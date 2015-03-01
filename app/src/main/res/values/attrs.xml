@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<declare-styleable name="FloatingActionButton">
+		<!-- Background color for FloatingActionButton. -->
+		<attr name="fabBackgroundColor" format="color" />
+		<!-- Corner radius for FloatingActionButton. -->
+		<attr name="fabCornerRadius" format="dimension" />
+		<!-- Elevation for FloatingActionButton. -->
+		<attr name="fabElevation" format="dimension" />
+		<!-- Maximum Elevation for FloatingActionButton. -->
+		<attr name="fabMaxElevation" format="dimension" />
+		<!-- Add padding in API v21+ as well to have the same measurements with previous versions. -->
+		<attr name="fabUseCompatPadding" format="boolean" />
+		<!-- Add padding to FloatingActionButton on v20 and before to prevent intersections between the Card content and rounded corners. -->
+		<attr name="fabPreventCornerOverlap" format="boolean" />
+		<!-- Inner padding between the edges of the FloatingActionButton and children of the FloatingActionButton. -->
+		<attr name="fabContentPadding" format="dimension" />
+		<!-- Inner padding between the left edge of the FloatingActionButton and children of the FloatingActionButton. -->
+		<attr name="fabContentPaddingLeft" format="dimension" />
+		<!-- Inner padding between the right edge of the FloatingActionButton and children of the FloatingActionButton. -->
+		<attr name="fabContentPaddingRight" format="dimension" />
+		<!-- Inner padding between the top edge of the FloatingActionButton and children of the FloatingActionButton. -->
+		<attr name="fabContentPaddingTop" format="dimension" />
+		<!-- Inner padding between the bottom edge of the FloatingActionButton and children of the FloatingActionButton. -->
+		<attr name="fabContentPaddingBottom" format="dimension" />
+	</declare-styleable>
+
+</resources>
