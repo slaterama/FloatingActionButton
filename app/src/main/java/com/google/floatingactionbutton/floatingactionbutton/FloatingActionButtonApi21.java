@@ -1,27 +1,48 @@
+/*
+ * Copyright (C) 2014 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.google.floatingactionbutton.floatingactionbutton;
 
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 
 import com.google.floatingactionbutton.R;
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-public class FloatingActionButtonApi21 implements FloatingActionButtonImpl {
+class FloatingActionButtonApi21 implements FloatingActionButtonImpl {
 
-	protected int mInsetShadow;
+	/* FAB */
+	float mInsetShadow;
+	/* END FAB */
 
 	@Override
 	public void initialize(FloatingActionButtonDelegate fab, Context context, int backgroundColor,
 						   float radius, float elevation, float maxElevation) {
-		mInsetShadow = context.getResources().getDimensionPixelSize(R.dimen.fab_compat_inset_shadow);
 		final RoundRectDrawable backgroundDrawable = new RoundRectDrawable(backgroundColor, radius);
 		fab.setBackgroundDrawable(backgroundDrawable);
 		View view = (View) fab;
 		view.setClipToOutline(true);
 		view.setElevation(elevation);
 		setMaxElevation(fab, maxElevation);
+
+		/* FAB */
+		mInsetShadow = context.getResources().getDimensionPixelSize(R.dimen.fab_compat_inset_shadow);
+		/* END FAB */
 	}
 
 	@Override
@@ -47,22 +68,24 @@ public class FloatingActionButtonApi21 implements FloatingActionButtonImpl {
 
 	@Override
 	public float getMinWidth(FloatingActionButtonDelegate fab) {
-		if (fab.getUseCompatPadding()) {
-			return RoundRectDrawableWithShadow.getMinWidth(
-					getMaxElevation(fab), getRadius(fab), mInsetShadow);
-		} else {
-			return getRadius(fab) * 2;
-		}
+		/* FAB */
+		return (fab.getUseCompatPadding()
+				? RoundRectDrawableWithShadow.getMinWidth(
+					getMaxElevation(fab), getRadius(fab), mInsetShadow)
+				: getRadius(fab) * 2);
+		// return getRadius(fab) * 2;
+		/* END FAB */
 	}
 
 	@Override
 	public float getMinHeight(FloatingActionButtonDelegate fab) {
-		if (fab.getUseCompatPadding()) {
-			return RoundRectDrawableWithShadow.getMinHeight(
-					getMaxElevation(fab), getRadius(fab), mInsetShadow);
-		} else {
-			return getRadius(fab) * 2;
-		}
+		/* FAB */
+		return (fab.getUseCompatPadding()
+				? RoundRectDrawableWithShadow.getMinHeight(
+					getMaxElevation(fab), getRadius(fab), mInsetShadow)
+				: getRadius(fab) * 2);
+		// return getRadius(fab) * 2;
+		/* END FAB */
 	}
 
 	@Override
@@ -92,6 +115,11 @@ public class FloatingActionButtonApi21 implements FloatingActionButtonImpl {
 				.calculateHorizontalPadding(elevation, radius, fab.getPreventCornerOverlap()));
 		int vPadding = (int) Math.ceil(RoundRectDrawableWithShadow
 				.calculateVerticalPadding(elevation, radius, fab.getPreventCornerOverlap()));
+
+		/* FAB */
+		Log.d("FAB", String.format("FloatingActionButtonApi21.java:updatePadding hPadding=%d, vPadding=%d", hPadding, vPadding));
+		/* END FAB */
+
 		fab.setShadowPadding(hPadding, vPadding, hPadding, vPadding);
 	}
 

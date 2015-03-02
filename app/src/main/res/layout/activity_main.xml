@@ -8,7 +8,7 @@
 			  android:paddingTop="@dimen/activity_vertical_margin"
 			  android:paddingBottom="@dimen/activity_vertical_margin"
 			  android:orientation="vertical"
-			  android:background="#666"
+			  android:background="#EEE"
 			  tools:context=".MainActivity">
 
 	<TextView
@@ -24,6 +24,7 @@
 		android:background="#FFF">
 
 		<com.google.floatingactionbutton.floatingactionbutton.FloatingActionButton
+			android:id="@+id/fab"
 			android:layout_width="@dimen/fab_size"
 			android:layout_height="@dimen/fab_size"
 			android:src="@drawable/ic_add_white_24dp"
@@ -32,7 +33,28 @@
 			app:fabBackgroundColor="@color/color_accent"
 			app:fabPreventCornerOverlap="false"
 			app:fabCornerRadius="@dimen/fab_radius"
-			app:fabUseCompatPadding="@bool/fab_use_compat_padding"/>
+			app:fabUseCompatPadding="false"/>
+
+	</FrameLayout>
+
+	<FrameLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal"
+		android:layout_marginTop="16dp"
+		android:background="#FFF">
+
+		<com.google.floatingactionbutton.floatingactionbutton.FloatingActionButton
+			android:id="@+id/fab_compat_padding"
+			android:layout_width="@dimen/fab_size"
+			android:layout_height="@dimen/fab_size"
+			android:src="@drawable/ic_add_white_24dp"
+			app:fabElevation="@dimen/fab_elevation"
+			app:fabMaxElevation="@dimen/fab_max_elevation"
+			app:fabBackgroundColor="@color/color_primary"
+			app:fabPreventCornerOverlap="false"
+			app:fabCornerRadius="@dimen/fab_radius"
+			app:fabUseCompatPadding="true"/>
 
 	</FrameLayout>
 

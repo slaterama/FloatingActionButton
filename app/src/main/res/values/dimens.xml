@@ -13,8 +13,8 @@
 	<dimen name="fab_compat_inset_shadow">1dp</dimen>
 
 	<dimen name="fab_size">150dp</dimen>
-	<dimen name="fab_radius">25dp</dimen>
-	<dimen name="fab_max_elevation">50dp</dimen>
-	<dimen name="fab_elevation">50dp</dimen>
+	<dimen name="fab_radius">75dp</dimen>
+	<dimen name="fab_max_elevation">24dp</dimen>
+	<dimen name="fab_elevation">12dp</dimen>
 
 </resources>

@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2014 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.google.floatingactionbutton.floatingactionbutton;
 
 import android.content.Context;
@@ -11,36 +27,35 @@ import android.widget.ImageButton;
 import com.google.floatingactionbutton.R;
 
 /**
- * An ImageButton with a rounded corner background and shadow.
+ * A FrameLayout with a rounded corner background and shadow.
  * <p>
- * FloatingActionButton uses <code>elevation</code> property on L for shadows and falls back to a
- * custom shadow implementation on older platforms.
+ * CardView uses <code>elevation</code> property on L for shadows and falls back to a custom shadow
+ * implementation on older platforms.
  * <p>
- * Due to expensive nature of rounded corner clipping, on platforms before L, FloatingActionButton
- * does not clip its children that intersect with rounded corners. Instead, it adds padding to
- * avoid such intersection (See {@link #setPreventCornerOverlap(boolean)} to change this behavior).
+ * Due to expensive nature of rounded corner clipping, on platforms before L, CardView does not
+ * clip its children that intersect with rounded corners. Instead, it adds padding to avoid such
+ * intersection (See {@link #setPreventCornerOverlap(boolean)} to change this behavior).
  * <p>
- * Before L, FloatingActionButton adds padding to its content and draws shadows to that area. This
- * padding amount is equal to <code>maxButtonElevation + (1 - cos45) * cornerRadius</code> on the
- * sides and <code>maxButtonElevation * 1.5 + (1 - cos45) * cornerRadius</code> on top and bottom.
+ * Before L, CardView adds padding to its content and draws shadows to that area. This padding
+ * amount is equal to <code>maxCardElevation + (1 - cos45) * cornerRadius</code> on the sides and
+ * <code>maxCardElevation * 1.5 + (1 - cos45) * cornerRadius</code> on top and bottom.
  * <p>
- * Since padding is used to offset content for shadows, you cannot set padding on
- * FloatingActionButton. Instead, you can use content padding attributes in XML or
- * {@link #setContentPadding(int, int, int, int)} in code to set the padding between the edges of
- * the Button and children of FloatingActionButton.
+ * Since padding is used to offset content for shadows, you cannot set padding on CardView.
+ * Instead,
+ * you can use content padding attributes in XML or {@link #setContentPadding(int, int, int, int)}
+ * in code to set the padding between the edges of the Card and children of CardView.
  * <p>
- * Note that, if you specify exact dimensions for the FloatingActionButton, because of the shadows,
- * its content area will be different between platforms before L and after L. By using api version
- * specific resource values, you can avoid these changes. Alternatively, If you want
- * FloatingActionButton to add inner padding on platforms L and after as well, you can set
- * {@link #setUseCompatPadding(boolean)} to <code>true</code>.
+ * Note that, if you specify exact dimensions for the CardView, because of the shadows, its content
+ * area will be different between platforms before L and after L. By using api version specific
+ * resource values, you can avoid these changes. Alternatively, If you want CardView to add inner
+ * padding on platforms L and after as well, you can set {@link #setUseCompatPadding(boolean)} to
+ * <code>true</code>.
  * <p>
- * To change FloatingActionButton's elevation in a backward compatible way, use
- * {@link #setButtonElevation(float)}. FloatingActionButton will use elevation API on L and before
- * L, it will change the shadow size. To avoid moving the View while shadow size is changing,
- * shadow size is clamped by {@link #getMaxButtonElevation()}. If you want to change elevation
- * dynamically, you should call {@link #setMaxButtonElevation(float)} when FloatingActionButton is
- * initialized.
+ * To change CardView's elevation in a backward compatible way, use
+ * {@link #setSupportElevation(float)}. CardView will use elevation API on L and before L, it will
+ * change the shadow size. To avoid moving the View while shadow size is changing, shadow size is
+ * clamped by {@link #getSupportMaxElevation()}. If you want to change elevation dynamically, you
+ * should call {@link #setSupportMaxElevation(float)} when CardView is initialized.
  *
  * @attr ref android.support.v7.cardview.R.styleable#FloatingActionButton_fabBackgroundColor
  * @attr ref android.support.v7.cardview.R.styleable#FloatingActionButton_fabCornerRadius
@@ -54,8 +69,7 @@ import com.google.floatingactionbutton.R;
  * @attr ref android.support.v7.cardview.R.styleable#FloatingActionButton_fabContentPaddingRight
  * @attr ref android.support.v7.cardview.R.styleable#FloatingActionButton_fabContentPaddingBottom
  */
-public class FloatingActionButton extends ImageButton
-		implements FloatingActionButtonDelegate {
+public class FloatingActionButton extends ImageButton implements FloatingActionButtonDelegate {
 
 	private static final FloatingActionButtonImpl IMPL;
 
@@ -78,6 +92,7 @@ public class FloatingActionButton extends ImageButton
 
 	private final Rect mShadowBounds = new Rect();
 
+
 	public FloatingActionButton(Context context) {
 		super(context);
 		initialize(context, null, 0);
@@ -93,12 +108,6 @@ public class FloatingActionButton extends ImageButton
 		initialize(context, attrs, defStyleAttr);
 	}
 
-	public FloatingActionButton(Context context, AttributeSet attrs, int defStyleAttr,
-								int defStyleRes) {
-		super(context, attrs, defStyleAttr, defStyleRes);
-		initialize(context, attrs, defStyleAttr);
-	}
-
 	@Override
 	public void setPadding(int left, int top, int right, int bottom) {
 		// NO OP
@@ -109,10 +118,10 @@ public class FloatingActionButton extends ImageButton
 	}
 
 	/**
-	 * Returns whether FloatingActionButton will add inner padding on platforms L and after.
+	 * Returns whether CardView will add inner padding on platforms L and after.
 	 *
-	 * @return True FloatingActionButton adds inner padding on platforms L and after to have same
-	 * dimensions with platforms before L.
+	 * @return True CardView adds inner padding on platforms L and after to have same dimensions
+	 * with platforms before L.
 	 */
 	@Override
 	public boolean getUseCompatPadding() {
@@ -120,20 +129,20 @@ public class FloatingActionButton extends ImageButton
 	}
 
 	/**
-	 * FloatingActionButton adds additional padding to draw shadows on platforms before L.
+	 * CardView adds additional padding to draw shadows on platforms before L.
 	 * <p>
-	 * This may cause FloatingActionButtons to have different sizes between L and before L. If you
-	 * need to align FloatingActionButton with other Views, you may need api version specific
-	 * dimension resources to account for the changes.
-	 * As an alternative, you can set this flag to <code>true</code> and FloatingActionButton will
-	 * add the same padding values on platforms L and after.
+	 * This may cause Cards to have different sizes between L and before L. If you need to align
+	 * CardView with other Views, you may need api version specific dimension resources to account
+	 * for the changes.
+	 * As an alternative, you can set this flag to <code>true</code> and CardView will add the same
+	 * padding values on platforms L and after.
 	 * <p>
 	 * Since setting this flag to true adds unnecessary gaps in the UI, default value is
 	 * <code>false</code>.
 	 *
-	 * @param useCompatPadding True if FloatingActionButton should add padding for the shadows on
-	 *                         platforms L and above.
-	 * @attr ref android.support.v7.cardview.R.styleable#FloatingActionButton_cardUseCompatPadding
+	 * @param useCompatPadding True if CardView should add padding for the shadows on platforms L
+	 *                         and above.
+	 * @attr ref android.support.v7.cardview.R.styleable#FloatingActionButton_fabUseCompatPadding
 	 */
 	public void setUseCompatPadding(boolean useCompatPadding) {
 		if (mCompatPadding == useCompatPadding) {
@@ -144,11 +153,10 @@ public class FloatingActionButton extends ImageButton
 	}
 
 	/**
-	 * Sets the padding between the Buttons's edges and the children of FloatingActionButton.
+	 * Sets the padding between the Card's edges and the children of CardView.
 	 * <p>
-	 * Depending on platform version or {@link #getUseCompatPadding()} settings,
-	 * FloatingActionButton may update these values before calling
-	 * {@link android.view.View#setPadding(int, int, int, int)}.
+	 * Depending on platform version or {@link #getUseCompatPadding()} settings, CardView may
+	 * update these values before calling {@link android.view.View#setPadding(int, int, int, int)}.
 	 *
 	 * @param left   The left padding in pixels
 	 * @param top    The top padding in pixels
@@ -165,17 +173,20 @@ public class FloatingActionButton extends ImageButton
 		IMPL.updatePadding(this);
 	}
 
+	@SuppressWarnings("all")
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-//		if (!(IMPL instanceof FloatingActionButtonApi21)) {
+		if (IMPL instanceof FloatingActionButtonApi21 == false /* FAB */ || mCompatPadding /* END FAB */) {
 			final int widthMode = MeasureSpec.getMode(widthMeasureSpec);
 			switch (widthMode) {
 				case MeasureSpec.EXACTLY:
 				case MeasureSpec.AT_MOST:
 					final int minWidth = (int) Math.ceil(IMPL.getMinWidth(this));
 
-					Log.d("FAB", String.format("minWidthDpi=%d",
-							(int) (minWidth * 1.0f / getResources().getDisplayMetrics().density)));
+					/* FAB */
+					String resourceEntryName = getResources().getResourceEntryName(getId());
+					Log.d("FAB", String.format("resourceEntryName=%s, minWidth=%d", resourceEntryName, minWidth));
+					/* END FAB */
 
 					widthMeasureSpec = MeasureSpec.makeMeasureSpec(Math.max(minWidth,
 							MeasureSpec.getSize(widthMeasureSpec)), widthMode);
@@ -188,17 +199,19 @@ public class FloatingActionButton extends ImageButton
 				case MeasureSpec.AT_MOST:
 					final int minHeight = (int) Math.ceil(IMPL.getMinHeight(this));
 
-					Log.d("FAB", String.format("minHeightDpi=%d",
-							(int) (minHeight * 1.0f / getResources().getDisplayMetrics().density)));
+					/* FAB */
+					String resourceEntryName = getResources().getResourceEntryName(getId());
+					Log.d("FAB", String.format("resourceEntryName=%s, minHeight=%d", resourceEntryName, minHeight));
+					/* END FAB */
 
 					heightMeasureSpec = MeasureSpec.makeMeasureSpec(Math.max(minHeight,
 							MeasureSpec.getSize(heightMeasureSpec)), heightMode);
 					break;
 			}
 			super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-//		} else {
-//			super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-//		}
+		} else {
+			super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+		}
 	}
 
 	private void initialize(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -227,43 +240,43 @@ public class FloatingActionButton extends ImageButton
 	}
 
 	/**
-	 * Returns the inner padding after the Button's left edge
+	 * Returns the inner padding after the Card's left edge
 	 *
-	 * @return the inner padding after the Button's left edge
+	 * @return the inner padding after the Card's left edge
 	 */
 	public int getContentPaddingLeft() {
 		return mContentPadding.left;
 	}
 
 	/**
-	 * Returns the inner padding before the Button's right edge
+	 * Returns the inner padding before the Card's right edge
 	 *
-	 * @return the inner padding before the Button's right edge
+	 * @return the inner padding before the Card's right edge
 	 */
 	public int getContentPaddingRight() {
 		return mContentPadding.right;
 	}
 
 	/**
-	 * Returns the inner padding after the Button's top edge
+	 * Returns the inner padding after the Card's top edge
 	 *
-	 * @return the inner padding after the Button's top edge
+	 * @return the inner padding after the Card's top edge
 	 */
 	public int getContentPaddingTop() {
 		return mContentPadding.top;
 	}
 
 	/**
-	 * Returns the inner padding before the Button's bottom edge
+	 * Returns the inner padding before the Card's bottom edge
 	 *
-	 * @return the inner padding before the Button's bottom edge
+	 * @return the inner padding before the Card's bottom edge
 	 */
 	public int getContentPaddingBottom() {
 		return mContentPadding.bottom;
 	}
 
 	/**
-	 * Updates the corner radius of the FloatingActionButton.
+	 * Updates the corner radius of the CardView.
 	 *
 	 * @param radius The radius in pixels of the corners of the rectangle shape
 	 * @attr ref android.support.v7.cardview.R.styleable#FloatingActionButton_fabCornerRadius
@@ -274,9 +287,9 @@ public class FloatingActionButton extends ImageButton
 	}
 
 	/**
-	 * Returns the corner radius of the FloatingActionButton.
+	 * Returns the corner radius of the CardView.
 	 *
-	 * @return Corner radius of the FloatingActionButton
+	 * @return Corner radius of the CardView
 	 * @see #getRadius()
 	 */
 	public float getRadius() {
@@ -284,7 +297,7 @@ public class FloatingActionButton extends ImageButton
 	}
 
 	/**
-	 * Internal method used by FloatingActionButton implementations to update the padding.
+	 * Internal method used by CardView implementations to update the padding.
 	 *
 	 * @hide
 	 */
@@ -295,61 +308,112 @@ public class FloatingActionButton extends ImageButton
 				right + mContentPadding.right, bottom + mContentPadding.bottom);
 	}
 
-	/**
-	 * Updates the backward compatible elevation of the FloatingActionButton.
+	/* FAB */
+	/*
+	 * Updates the backward compatible elevation of the CardView.
 	 *
 	 * @param radius The backward compatible elevation in pixels.
 	 * @attr ref android.support.v7.cardview.R.styleable#FloatingActionButton_fabElevation
-	 * @see #getButtonElevation()
-	 * @see #setMaxButtonElevation(float)
-	 */
-	public void setButtonElevation(float radius) {
+	 * @see #getCardElevation()
+	 * @see #setMaxCardElevation(float)
+	public void setCardElevation(float radius) {
 		IMPL.setElevation(this, radius);
 	}
+	*/
 
-	/**
-	 * Returns the backward compatible elevation of the FloatingActionButton.
+	/*
+	 * Returns the backward compatible elevation of the CardView.
 	 *
-	 * @return Elevation of the FloatingActionButton
-	 * @see #setButtonElevation(float)
-	 * @see #getMaxButtonElevation()
-	 */
-	public float getButtonElevation() {
+	 * @return Elevation of the CardView
+	 * @see #setCardElevation(float)
+	 * @see #getMaxCardElevation()
+	public float getCardElevation() {
 		return IMPL.getElevation(this);
 	}
+	*/
 
-	/**
-	 * Updates the backward compatible elevation of the FloatingActionButton.
+	/*
+	 * Updates the backward compatible elevation of the CardView.
 	 * <p>
 	 * Calling this method has no effect if device OS version is L or newer and
 	 * {@link #getUseCompatPadding()} is <code>false</code>.
 	 *
 	 * @param radius The backward compatible elevation in pixels.
 	 * @attr ref android.support.v7.cardview.R.styleable#FloatingActionButton_fabElevation
-	 * @see #setButtonElevation(float)
-	 * @see #getMaxButtonElevation()
+	 * @see #setCardElevation(float)
+	 * @see #getMaxCardElevation()
+	public void setMaxCardElevation(float radius) {
+		IMPL.setMaxElevation(this, radius);
+	}
+	*/
+
+	/*
+	 * Returns the backward compatible elevation of the CardView.
+	 *
+	 * @return Elevation of the CardView
+	 * @see #setMaxCardElevation(float)
+	 * @see #getCardElevation()
+	public float getMaxCardElevation() {
+		return IMPL.getMaxElevation(this);
+	}
+	*/
+
+	/**
+	 * Updates the backward compatible elevation of the CardView.
+	 *
+	 * @param radius The backward compatible elevation in pixels.
+	 * @attr ref android.support.v7.cardview.R.styleable#FloatingActionButton_fabElevation
+	 * @see #getSupportElevation()
+	 * @see #setSupportMaxElevation(float)
 	 */
-	public void setMaxButtonElevation(float radius) {
+	public void setSupportElevation(float radius) {
+		IMPL.setElevation(this, radius);
+	}
+
+	/**
+	 * Returns the backward compatible elevation of the CardView.
+	 *
+	 * @return Elevation of the CardView
+	 * @see #setSupportElevation(float)
+	 * @see #getSupportMaxElevation()
+	 */
+	public float getSupportElevation() {
+		return IMPL.getElevation(this);
+	}
+
+	/**
+	 * Updates the backward compatible elevation of the CardView.
+	 * <p>
+	 * Calling this method has no effect if device OS version is L or newer and
+	 * {@link #getUseCompatPadding()} is <code>false</code>.
+	 *
+	 * @param radius The backward compatible elevation in pixels.
+	 * @attr ref android.support.v7.cardview.R.styleable#FloatingActionButton_fabElevation
+	 * @see #setSupportElevation(float)
+	 * @see #getSupportMaxElevation()
+	 */
+	public void setSupportMaxElevation(float radius) {
 		IMPL.setMaxElevation(this, radius);
 	}
 
 	/**
-	 * Returns the backward compatible elevation of the FloatingActionButton.
+	 * Returns the backward compatible elevation of the CardView.
 	 *
-	 * @return Elevation of the FloatingActionButton
-	 * @see #setMaxButtonElevation(float)
-	 * @see #getButtonElevation()
+	 * @return Elevation of the CardView
+	 * @see #setSupportMaxElevation(float)
+	 * @see #getSupportElevation()
 	 */
-	public float getMaxButtonElevation() {
+	public float getSupportMaxElevation() {
 		return IMPL.getMaxElevation(this);
 	}
+	/* END FAB */
 
 	/**
-	 * Returns whether FloatingActionButton should add extra padding to content to avoid overlaps
-	 * with rounded corners on API versions 20 and below.
+	 * Returns whether CardView should add extra padding to content to avoid overlaps with rounded
+	 * corners on API versions 20 and below.
 	 *
-	 * @return True if FloatingActionButton prevents overlaps with rounded corners on platforms
-	 * before L. Default value is <code>true</code>.
+	 * @return True if CardView prevents overlaps with rounded corners on platforms before L.
+	 *         Default value is <code>true</code>.
 	 */
 	@Override
 	public boolean getPreventCornerOverlap() {
@@ -357,15 +421,15 @@ public class FloatingActionButton extends ImageButton
 	}
 
 	/**
-	 * On API 20 and before, FloatingActionButton does not clip the bounds of the Button for the
-	 * rounded corners. Instead, it adds padding to content so that it won't overlap with the
-	 * rounded corners. You can disable this behavior by setting this field to <code>false</code>.
+	 * On API 20 and before, CardView does not clip the bounds of the Card for the rounded corners.
+	 * Instead, it adds padding to content so that it won't overlap with the rounded corners.
+	 * You can disable this behavior by setting this field to <code>false</code>.
 	 * <p>
 	 * Setting this value on API 21 and above does not have any effect unless you have enabled
 	 * compatibility padding.
 	 *
-	 * @param preventCornerOverlap Whether FloatingActionButton should add extra padding to content
-	 *                             to avoid overlaps with the FloatingActionButton corners.
+	 * @param preventCornerOverlap Whether CardView should add extra padding to content to avoid
+	 *                             overlaps with the CardView corners.
 	 * @attr ref android.support.v7.cardview.R.styleable#FloatingActionButton_fabPreventCornerOverlap
 	 * @see #setUseCompatPadding(boolean)
 	 */

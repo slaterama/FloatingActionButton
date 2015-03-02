@@ -27,7 +27,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
-import com.google.floatingactionbutton.R;
+import android.support.v7.cardview.R;
 import android.util.Log;
 
 /**
@@ -88,9 +88,9 @@ class RoundRectDrawableWithShadow extends Drawable {
 
 	RoundRectDrawableWithShadow(Resources resources, int backgroundColor, float radius,
 								float shadowSize, float maxShadowSize) {
-		mShadowStartColor = resources.getColor(R.color.fab_shadow_start_color);
-		mShadowEndColor = resources.getColor(R.color.fab_shadow_end_color);
-		mInsetShadow = resources.getDimension(R.dimen.fab_compat_inset_shadow);
+		mShadowStartColor = resources.getColor(R.color.cardview_shadow_start_color);
+		mShadowEndColor = resources.getColor(R.color.cardview_shadow_end_color);
+		mInsetShadow = resources.getDimension(R.dimen.cardview_compat_inset_shadow);
 		setShadowSize(shadowSize, maxShadowSize);
 		mPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
 		mPaint.setColor(backgroundColor);
@@ -127,7 +127,7 @@ class RoundRectDrawableWithShadow extends Drawable {
 		if (shadowSize > maxShadowSize) {
 			shadowSize = maxShadowSize;
 			if (!mPrintedShadowClipWarning) {
-				Log.w("CardView", "Shadow size is being clipped by the max shadow size. See "
+				Log.w("FloatingActionButton", "Shadow size is being clipped by the max shadow size. See "
 						+ "{CardView#setMaxCardElevation}.");
 				mPrintedShadowClipWarning = true;
 			}
@@ -137,7 +137,7 @@ class RoundRectDrawableWithShadow extends Drawable {
 		}
 		mRawShadowSize = shadowSize;
 		mRawMaxShadowSize = maxShadowSize;
-		mShadowSize = shadowSize /* * SHADOW_MULTIPLIER */ + mInsetShadow;
+		mShadowSize = shadowSize * SHADOW_MULTIPLIER + mInsetShadow;
 		mMaxShadowSize = maxShadowSize + mInsetShadow;
 		mDirty = true;
 		invalidateSelf();
@@ -171,6 +171,7 @@ class RoundRectDrawableWithShadow extends Drawable {
 		}
 	}
 
+	/* FAB */
 	static float getMinWidth(float maxShadowSize, float cornerRadius, float insetShadow) {
 		final float content = 2 *
 				Math.max(maxShadowSize, cornerRadius + insetShadow + maxShadowSize / 2);
@@ -182,6 +183,7 @@ class RoundRectDrawableWithShadow extends Drawable {
 				+ maxShadowSize * SHADOW_MULTIPLIER / 2);
 		return content + (maxShadowSize * SHADOW_MULTIPLIER + insetShadow) * 2;
 	}
+	/* END FAB */
 
 	@Override
 	public void setColorFilter(ColorFilter cf) {
@@ -333,21 +335,21 @@ class RoundRectDrawableWithShadow extends Drawable {
 	}
 
 	float getMinWidth() {
-		/*
+		return getMinWidth(mRawMaxShadowSize, mCornerRadius, mInsetShadow);
+		/* FAB
 		final float content = 2 *
 				Math.max(mRawMaxShadowSize, mCornerRadius + mInsetShadow + mRawMaxShadowSize / 2);
 		return content + (mRawMaxShadowSize + mInsetShadow) * 2;
-		*/
-		return getMinWidth(mRawMaxShadowSize, mCornerRadius, mInsetShadow);
+		END FAB */
 	}
 
 	float getMinHeight() {
-		/*
+		return getMinHeight(mRawMaxShadowSize, mCornerRadius, mInsetShadow);
+		/* FAB
 		final float content = 2 * Math.max(mRawMaxShadowSize, mCornerRadius + mInsetShadow
 				+ mRawMaxShadowSize * SHADOW_MULTIPLIER / 2);
 		return content + (mRawMaxShadowSize * SHADOW_MULTIPLIER + mInsetShadow) * 2;
-		*/
-		return getMinHeight(mRawMaxShadowSize, mCornerRadius, mInsetShadow);
+		END FAB */
 	}
 
 	static interface RoundRectHelper {
