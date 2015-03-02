@@ -18,7 +18,6 @@ package com.google.floatingactionbutton.floatingactionbutton;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
-import android.util.Log;
 import android.view.View;
 
 import com.google.floatingactionbutton.R;
@@ -117,7 +116,7 @@ class FloatingActionButtonApi21 implements FloatingActionButtonImpl {
 				.calculateVerticalPadding(elevation, radius, fab.getPreventCornerOverlap()));
 
 		/* FAB */
-		Log.d("FAB", String.format("FloatingActionButtonApi21.java:updatePadding hPadding=%d, vPadding=%d", hPadding, vPadding));
+		LogEx.d(String.format("FloatingActionButtonApi21.java:updatePadding hPadding=%d, vPadding=%d", hPadding, vPadding));
 		/* END FAB */
 
 		fab.setShadowPadding(hPadding, vPadding, hPadding, vPadding);

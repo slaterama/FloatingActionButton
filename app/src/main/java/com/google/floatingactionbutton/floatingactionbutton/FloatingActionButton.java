@@ -21,7 +21,6 @@ import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.ImageButton;
 
 import com.google.floatingactionbutton.R;
@@ -176,18 +175,12 @@ public class FloatingActionButton extends ImageButton implements FloatingActionB
 	@SuppressWarnings("all")
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-		if (IMPL instanceof FloatingActionButtonApi21 == false /* FAB */ || mCompatPadding /* END FAB */) {
+		if (IMPL instanceof FloatingActionButtonApi21 == false /* FAB  || mCompatPadding  END FAB */) {
 			final int widthMode = MeasureSpec.getMode(widthMeasureSpec);
 			switch (widthMode) {
 				case MeasureSpec.EXACTLY:
 				case MeasureSpec.AT_MOST:
 					final int minWidth = (int) Math.ceil(IMPL.getMinWidth(this));
-
-					/* FAB */
-					String resourceEntryName = getResources().getResourceEntryName(getId());
-					Log.d("FAB", String.format("resourceEntryName=%s, minWidth=%d", resourceEntryName, minWidth));
-					/* END FAB */
-
 					widthMeasureSpec = MeasureSpec.makeMeasureSpec(Math.max(minWidth,
 							MeasureSpec.getSize(widthMeasureSpec)), widthMode);
 					break;
@@ -198,12 +191,6 @@ public class FloatingActionButton extends ImageButton implements FloatingActionB
 				case MeasureSpec.EXACTLY:
 				case MeasureSpec.AT_MOST:
 					final int minHeight = (int) Math.ceil(IMPL.getMinHeight(this));
-
-					/* FAB */
-					String resourceEntryName = getResources().getResourceEntryName(getId());
-					Log.d("FAB", String.format("resourceEntryName=%s, minHeight=%d", resourceEntryName, minHeight));
-					/* END FAB */
-
 					heightMeasureSpec = MeasureSpec.makeMeasureSpec(Math.max(minHeight,
 							MeasureSpec.getSize(heightMeasureSpec)), heightMode);
 					break;
@@ -304,6 +291,11 @@ public class FloatingActionButton extends ImageButton implements FloatingActionB
 	@Override
 	public void setShadowPadding(int left, int top, int right, int bottom) {
 		mShadowBounds.set(left, top, right, bottom);
+
+		/* FAB */
+		LogEx.d(String.format("left=%d, top=%d, right=%d, bottom=%d", left, top, right, bottom));
+		/* END FAB */
+
 		super.setPadding(left + mContentPadding.left, top + mContentPadding.top,
 				right + mContentPadding.right, bottom + mContentPadding.bottom);
 	}

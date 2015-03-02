@@ -5,12 +5,17 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.floatingactionbutton.floatingactionbutton.LogEx;
+
 
 public class MainActivity extends ActionBarActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		LogEx.setTagFormat("FAB|%s", LogEx.Placeholder.SIMPLE_CLASS_NAME);
+
 		setContentView(R.layout.activity_main);
 	}
 

@@ -172,16 +172,46 @@ class RoundRectDrawableWithShadow extends Drawable {
 	}
 
 	/* FAB */
+	static float getMinContentWidth(float maxShadowSize, float cornerRadius, float insetShadow) {
+		return Math.max(maxShadowSize * 2,
+			(cornerRadius + insetShadow) * 2 + maxShadowSize);
+	}
+
+	static float getMinContentHeight(float maxShadowSize, float cornerRadius, float insetShadow) {
+		return Math.max(maxShadowSize * 2,
+			(cornerRadius + insetShadow) * 2 + (maxShadowSize * SHADOW_MULTIPLIER));
+	}
+
+	static float getMinHPadding(float maxShadowSize, float insetShadow) {
+		return (maxShadowSize /* FAB + insetShadow END FAB */) * 2;
+	}
+
+	static float getMinVPadding(float maxShadowSize, float insetShadow) {
+		return (maxShadowSize * SHADOW_MULTIPLIER /* FAB + insetShadow END FAB */) * 2;
+	}
+
 	static float getMinWidth(float maxShadowSize, float cornerRadius, float insetShadow) {
+		/* FAB
 		final float content = 2 *
 				Math.max(maxShadowSize, cornerRadius + insetShadow + maxShadowSize / 2);
-		return content + (maxShadowSize + insetShadow) * 2;
+		END FAB */
+		/*
+		return getMinContentWidth(maxShadowSize, cornerRadius, insetShadow) +
+				getMinHPadding(maxShadowSize, insetShadow);
+		*/
+		return (cornerRadius + maxShadowSize) * 2;
 	}
 
 	static float getMinHeight(float maxShadowSize, float cornerRadius, float insetShadow) {
+		/* FAB
 		final float content = 2 * Math.max(maxShadowSize, cornerRadius + insetShadow
 				+ maxShadowSize * SHADOW_MULTIPLIER / 2);
-		return content + (maxShadowSize * SHADOW_MULTIPLIER + insetShadow) * 2;
+		END FAB */
+		/*
+		return getMinContentHeight(maxShadowSize, cornerRadius, insetShadow) +
+				getMinVPadding(maxShadowSize, insetShadow);
+		*/
+		return (cornerRadius + maxShadowSize * SHADOW_MULTIPLIER) * 2;
 	}
 	/* END FAB */
 
