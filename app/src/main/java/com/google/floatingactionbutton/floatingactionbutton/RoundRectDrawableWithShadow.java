@@ -172,6 +172,7 @@ class RoundRectDrawableWithShadow extends Drawable {
 	}
 
 	/* FAB */
+	/*
 	static float getMinContentWidth(float maxShadowSize, float cornerRadius, float insetShadow) {
 		return Math.max(maxShadowSize * 2,
 			(cornerRadius + insetShadow) * 2 + maxShadowSize);
@@ -183,12 +184,13 @@ class RoundRectDrawableWithShadow extends Drawable {
 	}
 
 	static float getMinHPadding(float maxShadowSize, float insetShadow) {
-		return (maxShadowSize /* FAB + insetShadow END FAB */) * 2;
+		return (maxShadowSize + insetShadow) * 2;
 	}
 
 	static float getMinVPadding(float maxShadowSize, float insetShadow) {
-		return (maxShadowSize * SHADOW_MULTIPLIER /* FAB + insetShadow END FAB */) * 2;
+		return (maxShadowSize * SHADOW_MULTIPLIER + insetShadow) * 2;
 	}
+	*/
 
 	static float getMinWidth(float maxShadowSize, float cornerRadius, float insetShadow) {
 		/* FAB
