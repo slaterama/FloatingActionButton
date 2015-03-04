@@ -71,6 +71,12 @@ class RoundRectDrawable extends Drawable {
 
 	@Override
 	public void draw(Canvas canvas) {
+
+		int width = canvas.getWidth();
+		int height = canvas.getHeight();
+
+		LogEx.d(String.format("width=%d, height=%d, mBoundsF=%s, mRadius=%.2f", width, height, mBoundsF, mRadius));
+
 		canvas.drawRoundRect(mBoundsF, mRadius, mRadius, mPaint);
 	}
 

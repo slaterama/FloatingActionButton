@@ -46,8 +46,8 @@
 
 		<com.google.floatingactionbutton.floatingactionbutton.FloatingActionButton
 			android:id="@+id/fab_compat_padding"
-			android:layout_width="@dimen/fab_size"
-			android:layout_height="@dimen/fab_size"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
 			android:src="@drawable/ic_add_white_24dp"
 			app:fabElevation="@dimen/fab_elevation"
 			app:fabMaxElevation="@dimen/fab_max_elevation"
@@ -65,16 +65,17 @@
 		android:layout_marginTop="16dp"
 		android:background="#FFF">
 
-		<android.support.v7.widget.CardView
-			android:layout_width="@dimen/fab_size"
-			android:layout_height="@dimen/fab_size"
+		<com.google.floatingactionbutton.floatingactionbutton.CardViewEx
+			android:id="@+id/cardview"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
 			android:src="@drawable/ic_add_white_24dp"
 			app:cardElevation="@dimen/fab_elevation"
 			app:cardMaxElevation="@dimen/fab_max_elevation"
 			app:cardBackgroundColor="@color/color_accent"
 			app:cardPreventCornerOverlap="false"
 			app:cardCornerRadius="@dimen/fab_radius"
-			app:cardUseCompatPadding="@bool/fab_use_compat_padding">
+			app:cardUseCompatPadding="true">
 
 			<ImageView
 				android:layout_width="wrap_content"
@@ -82,7 +83,7 @@
 				android:layout_gravity="center"
 				android:src="@drawable/ic_add_white_24dp"/>
 
-		</android.support.v7.widget.CardView>
+		</com.google.floatingactionbutton.floatingactionbutton.CardViewEx>
 
 	</FrameLayout>
 

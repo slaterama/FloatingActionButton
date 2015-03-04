@@ -67,24 +67,12 @@ class FloatingActionButtonApi21 implements FloatingActionButtonImpl {
 
 	@Override
 	public float getMinWidth(FloatingActionButtonDelegate fab) {
-		/* FAB */
-		return (fab.getUseCompatPadding()
-				? RoundRectDrawableWithShadow.getMinWidth(
-					getMaxElevation(fab), getRadius(fab), mInsetShadow)
-				: getRadius(fab) * 2);
-		// return getRadius(fab) * 2;
-		/* END FAB */
+		return getRadius(fab) * 2;
 	}
 
 	@Override
 	public float getMinHeight(FloatingActionButtonDelegate fab) {
-		/* FAB */
-		return (fab.getUseCompatPadding()
-				? RoundRectDrawableWithShadow.getMinHeight(
-					getMaxElevation(fab), getRadius(fab), mInsetShadow)
-				: getRadius(fab) * 2);
-		// return getRadius(fab) * 2;
-		/* END FAB */
+		return getRadius(fab) * 2;
 	}
 
 	@Override
@@ -116,7 +104,7 @@ class FloatingActionButtonApi21 implements FloatingActionButtonImpl {
 				.calculateVerticalPadding(elevation, radius, fab.getPreventCornerOverlap()));
 
 		/* FAB */
-		LogEx.d(String.format("FloatingActionButtonApi21.java:updatePadding hPadding=%d, vPadding=%d", hPadding, vPadding));
+		// LogEx.d(String.format("FloatingActionButtonApi21.java:updatePadding hPadding=%d, vPadding=%d", hPadding, vPadding));
 		/* END FAB */
 
 		fab.setShadowPadding(hPadding, vPadding, hPadding, vPadding);

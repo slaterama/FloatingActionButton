@@ -20,7 +20,9 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.os.Build;
+import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.ImageButton;
 
 import com.google.floatingactionbutton.R;
@@ -175,7 +177,84 @@ public class FloatingActionButton extends ImageButton implements FloatingActionB
 	@SuppressWarnings("all")
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-		if (IMPL instanceof FloatingActionButtonApi21 == false /* FAB  || mCompatPadding  END FAB */) {
+
+		String resourceEntryName = "??";
+		if (!isInEditMode()) {
+			resourceEntryName = getContext().getResources().getResourceEntryName(getId());
+		}
+
+		boolean includePadding = (getUseCompatPadding() || Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP);
+
+		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+		int superMeasuredWidthAndState = ViewCompat.getMeasuredWidthAndState(this);
+		int superMeasuredHeightAndState = ViewCompat.getMeasuredHeightAndState(this);
+
+		int superMeasuredWidth = superMeasuredWidthAndState & View.MEASURED_SIZE_MASK;
+		int superMeasuredWidthState = superMeasuredWidthAndState & View.MEASURED_STATE_MASK;
+
+		int superMeasuredHeight = superMeasuredHeightAndState & View.MEASURED_SIZE_MASK;
+		int superMeasuredHeightState = superMeasuredHeightAndState & View.MEASURED_STATE_MASK;
+
+		int w = 0;
+		int h = 0;
+
+		int pleft = getPaddingLeft();
+		int pright = getPaddingRight();
+		int ptop = getPaddingTop();
+		int pbottom = getPaddingBottom();
+
+		// Get size requested and size mode
+		int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+		int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+		int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+		int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+
+		boolean resizeWidth = widthMode != MeasureSpec.EXACTLY;
+		boolean resizeHeight = heightMode != MeasureSpec.EXACTLY;
+
+		final String widthModeString = ViewUtils.measureSpecModeToString(widthMode);
+		final String heightModeString = ViewUtils.measureSpecModeToString(heightMode);
+
+		float elevationFactor = (includePadding ? getSupportMaxElevation() : 0);
+		int fabWidth = (int) ((getRadius() + elevationFactor) * 2);
+		int resolvedWidthSizeAndState = resolveSizeAndState(
+				Math.max(fabWidth, superMeasuredWidth), widthMeasureSpec, superMeasuredWidthState);
+		int resolvedWidth = resolvedWidthSizeAndState & View.MEASURED_SIZE_MASK;
+		int resolvedWidthState = resolvedWidthSizeAndState & View.MEASURED_STATE_MASK;
+
+		elevationFactor *= RoundRectDrawableWithShadow.SHADOW_MULTIPLIER;
+		int fabHeight = (int) ((getRadius() + elevationFactor) * 2);
+		int resolvedHeightSizeAndState = resolveSizeAndState(
+				Math.max(fabHeight, superMeasuredHeight), heightMeasureSpec, superMeasuredHeightState);
+		int resolvedHeight = resolvedHeightSizeAndState & View.MEASURED_SIZE_MASK;
+		int resolvedHeightState = resolvedHeightSizeAndState & View.MEASURED_STATE_MASK;
+
+		float density = getContext().getResources().getDisplayMetrics().density;
+		int resolvedWidthDp = (int) (resolvedWidth / density);
+		int resolvedHeightDp = (int) (resolvedHeight / density);
+		LogEx.d(String.format("fab=%s, resolvedWidthDp=%d, resolvedHeightDp=%d", resourceEntryName, resolvedWidthDp, resolvedHeightDp));
+
+		//if (resizeWidth || resizeHeight) {
+
+		//} else {
+			/* We are either don't want to preserve the drawables aspect ratio,
+               or we are not allowed to change view dimensions. Just measure in
+               the normal way.
+            */
+		/*
+			w += pleft + pright;
+			h += ptop + pbottom;
+
+			w = Math.max(w, getSuggestedMinimumWidth());
+			h = Math.max(h, getSuggestedMinimumHeight());
+			widthSize = resolveSizeAndState(w, widthMeasureSpec, 0);
+			heightSize = resolveSizeAndState(h, heightMeasureSpec, 0);
+		}
+		*/
+
+		/*
+		if (IMPL instanceof FloatingActionButtonApi21 == false // FAB  || mCompatPadding  END FAB //) {
 			final int widthMode = MeasureSpec.getMode(widthMeasureSpec);
 			switch (widthMode) {
 				case MeasureSpec.EXACTLY:
@@ -199,6 +278,9 @@ public class FloatingActionButton extends ImageButton implements FloatingActionB
 		} else {
 			super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 		}
+		*/
+
+		setMeasuredDimension(resolvedWidth, resolvedHeight);
 	}
 
 	private void initialize(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -293,7 +375,7 @@ public class FloatingActionButton extends ImageButton implements FloatingActionB
 		mShadowBounds.set(left, top, right, bottom);
 
 		/* FAB */
-		LogEx.d(String.format("left=%d, top=%d, right=%d, bottom=%d", left, top, right, bottom));
+		//LogEx.d(String.format("left=%d, top=%d, right=%d, bottom=%d", left, top, right, bottom));
 		/* END FAB */
 
 		super.setPadding(left + mContentPadding.left, top + mContentPadding.top,
