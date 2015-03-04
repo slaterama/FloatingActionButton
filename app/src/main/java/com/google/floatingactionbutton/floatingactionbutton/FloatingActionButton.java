@@ -196,6 +196,7 @@ public class FloatingActionButton extends ImageButton implements FloatingActionB
 		int superMeasuredHeight = superMeasuredHeightAndState & View.MEASURED_SIZE_MASK;
 		int superMeasuredHeightState = superMeasuredHeightAndState & View.MEASURED_STATE_MASK;
 
+		/*
 		int w = 0;
 		int h = 0;
 
@@ -203,6 +204,7 @@ public class FloatingActionButton extends ImageButton implements FloatingActionB
 		int pright = getPaddingRight();
 		int ptop = getPaddingTop();
 		int pbottom = getPaddingBottom();
+		*/
 
 		// Get size requested and size mode
 		int widthMode = MeasureSpec.getMode(widthMeasureSpec);
@@ -210,8 +212,10 @@ public class FloatingActionButton extends ImageButton implements FloatingActionB
 		int heightMode = MeasureSpec.getMode(heightMeasureSpec);
 		int heightSize = MeasureSpec.getSize(heightMeasureSpec);
 
+		/*
 		boolean resizeWidth = widthMode != MeasureSpec.EXACTLY;
 		boolean resizeHeight = heightMode != MeasureSpec.EXACTLY;
+		*/
 
 		final String widthModeString = ViewUtils.measureSpecModeToString(widthMode);
 		final String heightModeString = ViewUtils.measureSpecModeToString(heightMode);

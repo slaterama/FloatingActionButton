@@ -321,15 +321,21 @@ class RoundRectDrawableWithShadow extends Drawable {
 	}
 
 	float getMinWidth() {
+		return (mCornerRadius + mRawMaxShadowSize) * 2;
+		/* FAB
 		final float content = 2 *
 				Math.max(mRawMaxShadowSize, mCornerRadius + mInsetShadow + mRawMaxShadowSize / 2);
 		return content + (mRawMaxShadowSize + mInsetShadow) * 2;
+		END FAB */
 	}
 
 	float getMinHeight() {
+		return (mCornerRadius + mRawMaxShadowSize * SHADOW_MULTIPLIER) * 2;
+		/* FAB
 		final float content = 2 * Math.max(mRawMaxShadowSize, mCornerRadius + mInsetShadow
 				+ mRawMaxShadowSize * SHADOW_MULTIPLIER / 2);
 		return content + (mRawMaxShadowSize * SHADOW_MULTIPLIER + mInsetShadow) * 2;
+		END FAB */
 	}
 
 	static interface RoundRectHelper {
