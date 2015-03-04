@@ -16,7 +16,6 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"/>
 
-	<!--
 	<FrameLayout
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
@@ -26,18 +25,17 @@
 
 		<com.google.floatingactionbutton.floatingactionbutton.FloatingActionButton
 			android:id="@+id/fab"
-			android:layout_width="@dimen/fab_size"
-			android:layout_height="@dimen/fab_size"
+			android:layout_width="128dp"
+			android:layout_height="128dp"
 			android:src="@drawable/ic_add_white_24dp"
 			app:fabElevation="@dimen/fab_elevation"
 			app:fabMaxElevation="@dimen/fab_max_elevation"
 			app:fabBackgroundColor="@color/color_accent"
 			app:fabPreventCornerOverlap="false"
-			app:fabCornerRadius="@dimen/fab_radius"
-			app:fabUseCompatPadding="false"/>
+			app:fabCornerRadius="24dp"
+			app:fabUseCompatPadding="true"/>
 
 	</FrameLayout>
-	-->
 
 	<FrameLayout
 		android:layout_width="wrap_content"

@@ -17,6 +17,7 @@ package com.google.floatingactionbutton.floatingactionbutton;
 
 import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
@@ -101,6 +102,10 @@ class RoundRectDrawableWithShadow extends Drawable {
 		mCornerRadius = radius;
 		mButtonBounds = new RectF();
 		mEdgeShadowPaint = new Paint(mCornerShadowPaint);
+
+		/* FAB */
+		mEdgeShadowPaint.setAlpha(64);
+		/* END FAB */
 	}
 
 	public void setAddPaddingForCorners(boolean addPaddingForCorners) {
@@ -202,7 +207,7 @@ class RoundRectDrawableWithShadow extends Drawable {
 		canvas.translate(0, mRawShadowSize / 2);
 		drawShadow(canvas);
 		canvas.translate(0, -mRawShadowSize / 2);
-//		sRoundRectHelper.drawRoundRect(canvas, mButtonBounds, mCornerRadius, mPaint);
+		sRoundRectHelper.drawRoundRect(canvas, mButtonBounds, mCornerRadius, mPaint);
 	}
 
 	private void drawShadow(Canvas canvas) {
