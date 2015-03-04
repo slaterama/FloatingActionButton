@@ -104,7 +104,7 @@ class RoundRectDrawableWithShadow extends Drawable {
 		mEdgeShadowPaint = new Paint(mCornerShadowPaint);
 
 		/* FAB */
-		mEdgeShadowPaint.setAlpha(64);
+		mEdgeShadowPaint.setAlpha(128);
 		/* END FAB */
 	}
 
