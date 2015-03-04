@@ -237,7 +237,7 @@ public class FloatingActionButton extends ImageButton implements FloatingActionB
 		float density = getContext().getResources().getDisplayMetrics().density;
 		int resolvedWidthDp = (int) (resolvedWidth / density);
 		int resolvedHeightDp = (int) (resolvedHeight / density);
-		LogEx.d(String.format("fab=%s, resolvedWidthDp=%d, resolvedHeightDp=%d", resourceEntryName, resolvedWidthDp, resolvedHeightDp));
+//		LogEx.d(String.format("fab=%s, resolvedWidthDp=%d, resolvedHeightDp=%d", resourceEntryName, resolvedWidthDp, resolvedHeightDp));
 
 		//if (resizeWidth || resizeHeight) {
 

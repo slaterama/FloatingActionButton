@@ -14,7 +14,7 @@
 
 	<dimen name="fab_size">54dp</dimen>
 	<dimen name="fab_radius">27dp</dimen>
-	<dimen name="fab_max_elevation">8dp</dimen>
-	<dimen name="fab_elevation">4dp</dimen>
+	<dimen name="fab_max_elevation">16dp</dimen>
+	<dimen name="fab_elevation">8dp</dimen>
 
 </resources>
