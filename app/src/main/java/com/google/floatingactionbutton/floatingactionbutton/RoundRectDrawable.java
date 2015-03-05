@@ -26,8 +26,8 @@ import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 
-import static com.google.floatingactionbutton.floatingactionbutton.RoundRectDrawableWithShadow.calculateVerticalPadding;
 import static com.google.floatingactionbutton.floatingactionbutton.RoundRectDrawableWithShadow.calculateHorizontalPadding;
+import static com.google.floatingactionbutton.floatingactionbutton.RoundRectDrawableWithShadow.calculateVerticalPadding;
 
 /**
  * Very simple drawable that draws a rounded rectangle background with arbitrary corners and also

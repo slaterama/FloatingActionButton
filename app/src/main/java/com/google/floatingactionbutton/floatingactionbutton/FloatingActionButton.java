@@ -498,6 +498,11 @@ public class FloatingActionButton extends ImageButton implements FloatingActionB
 		return mPreventCornerOverlap;
 	}
 
+	@Override
+	public int[] onCreateDrawableState(int extraSpace) {
+		return super.onCreateDrawableState(extraSpace);
+	}
+
 	/**
 	 * On API 20 and before, CardView does not clip the bounds of the Card for the rounded corners.
 	 * Instead, it adds padding to content so that it won't overlap with the rounded corners.
@@ -518,4 +523,6 @@ public class FloatingActionButton extends ImageButton implements FloatingActionB
 		mPreventCornerOverlap = preventCornerOverlap;
 		IMPL.onPreventCornerOverlapChanged(this);
 	}
+
+
 }

@@ -17,17 +17,13 @@ package com.google.floatingactionbutton.floatingactionbutton;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Outline;
 import android.os.Build;
 import android.view.View;
-
-import com.google.floatingactionbutton.R;
+import android.view.ViewOutlineProvider;
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 class FloatingActionButtonApi21 implements FloatingActionButtonImpl {
-
-	/* FAB */
-	float mInsetShadow;
-	/* END FAB */
 
 	@Override
 	public void initialize(FloatingActionButtonDelegate fab, Context context, int backgroundColor,
@@ -39,9 +35,21 @@ class FloatingActionButtonApi21 implements FloatingActionButtonImpl {
 		view.setElevation(elevation);
 		setMaxElevation(fab, maxElevation);
 
-		/* FAB */
-		mInsetShadow = context.getResources().getDimensionPixelSize(R.dimen.fab_compat_inset_shadow);
-		/* END FAB */
+		// Set the outline provider for this view. The provider is given the outline which it can
+		// then modify as needed. In this case we set the outline to be an oval fitting the height
+		// and width.
+		/* TODO
+		fab.setOutlineProvider(new ViewOutlineProvider() {
+			@TargetApi(Build.VERSION_CODES.LOLLIPOP)
+			@Override
+			public void getOutline(View view, Outline outline) {
+				outline.setOval(0, 0, getWidth(), getHeight());
+			}
+		});
+		END TODO */
+
+		// Finally, enable clipping to the outline, using the provider we set above
+		// TODO fab.setClipToOutline(true);
 	}
 
 	@Override
@@ -102,11 +110,6 @@ class FloatingActionButtonApi21 implements FloatingActionButtonImpl {
 				.calculateHorizontalPadding(elevation, radius, fab.getPreventCornerOverlap()));
 		int vPadding = (int) Math.ceil(RoundRectDrawableWithShadow
 				.calculateVerticalPadding(elevation, radius, fab.getPreventCornerOverlap()));
-
-		/* FAB */
-		// LogEx.d(String.format("FloatingActionButtonApi21.java:updatePadding hPadding=%d, vPadding=%d", hPadding, vPadding));
-		/* END FAB */
-
 		fab.setShadowPadding(hPadding, vPadding, hPadding, vPadding);
 	}
 
