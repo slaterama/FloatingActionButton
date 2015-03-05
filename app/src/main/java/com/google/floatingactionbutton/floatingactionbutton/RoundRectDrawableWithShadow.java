@@ -41,7 +41,9 @@ class RoundRectDrawableWithShadow extends Drawable {
 
 	final static float SHADOW_MULTIPLIER = 1.5f;
 
-	final float mInsetShadow; // extra shadow to avoid gaps between card and shadow
+	final float mInsetShadowExtra;
+
+	float mInsetShadow; // extra shadow to avoid gaps between card and shadow
 
 	/*
 	* This helper is set by CardView implementations.
@@ -92,7 +94,7 @@ class RoundRectDrawableWithShadow extends Drawable {
 								float shadowSize, float maxShadowSize) {
 		mShadowStartColor = resources.getColor(R.color.fab_shadow_start_color);
 		mShadowEndColor = resources.getColor(R.color.fab_shadow_end_color);
-		mInsetShadow = resources.getDimension(R.dimen.fab_compat_inset_shadow);
+		mInsetShadowExtra = resources.getDimension(R.dimen.fab_compat_inset_shadow);
 		setShadowSize(shadowSize, maxShadowSize);
 		mPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
 		mPaint.setColor(backgroundColor);
@@ -104,7 +106,7 @@ class RoundRectDrawableWithShadow extends Drawable {
 		mEdgeShadowPaint = new Paint(mCornerShadowPaint);
 
 		/* FAB */
-		mEdgeShadowPaint.setAlpha(128);
+//		mEdgeShadowPaint.setAlpha(128);
 		/* END FAB */
 	}
 
@@ -146,6 +148,11 @@ class RoundRectDrawableWithShadow extends Drawable {
 		mShadowSize = shadowSize * SHADOW_MULTIPLIER + mInsetShadow;
 		mMaxShadowSize = maxShadowSize + mInsetShadow;
 		mDirty = true;
+
+		/* FAB */
+		mInsetShadow = mRawShadowSize / 2 + mInsetShadowExtra;
+		/* END FAB */
+
 		invalidateSelf();
 	}
 
@@ -211,17 +218,18 @@ class RoundRectDrawableWithShadow extends Drawable {
 	}
 
 	private void drawShadow(Canvas canvas) {
-		final float edgeShadowTop = -mCornerRadius - mShadowSize;
-		final float inset = mCornerRadius + mInsetShadow + mRawShadowSize / 2;
-		final boolean drawHorizontalEdges = mButtonBounds.width() - 2 * inset > 0;
-		final boolean drawVerticalEdges = mButtonBounds.height() - 2 * inset > 0;
+		final float edgeShadowTop = -mCornerRadius - mRawShadowSize;
+		float inset = mCornerRadius; // - mInsetShadow; //mCornerRadius - mInsetShadow + mRawShadowSize;
+		final boolean drawHorizontalEdges = mButtonBounds.width() > 2 * mCornerRadius;
+		final boolean drawVerticalEdges = mButtonBounds.height() > 2 * mCornerRadius;
+
 		// LT
 		int saved = canvas.save();
 		canvas.translate(mButtonBounds.left + inset, mButtonBounds.top + inset);
 		canvas.drawPath(mCornerShadowPath, mCornerShadowPaint);
 		if (drawHorizontalEdges) {
 			canvas.drawRect(0, edgeShadowTop,
-					mButtonBounds.width() - 2 * inset, -mCornerRadius,
+					mButtonBounds.width() - 2 * inset, -mCornerRadius + mInsetShadow,
 					mEdgeShadowPaint);
 		}
 		canvas.restoreToCount(saved);
@@ -232,7 +240,7 @@ class RoundRectDrawableWithShadow extends Drawable {
 		canvas.drawPath(mCornerShadowPath, mCornerShadowPaint);
 		if (drawHorizontalEdges) {
 			canvas.drawRect(0, edgeShadowTop,
-					mButtonBounds.width() - 2 * inset, -mCornerRadius + mShadowSize,
+					mButtonBounds.width() - 2 * inset, -mCornerRadius + mInsetShadow,
 					mEdgeShadowPaint);
 		}
 		canvas.restoreToCount(saved);
@@ -243,7 +251,8 @@ class RoundRectDrawableWithShadow extends Drawable {
 		canvas.drawPath(mCornerShadowPath, mCornerShadowPaint);
 		if (drawVerticalEdges) {
 			canvas.drawRect(0, edgeShadowTop,
-					mButtonBounds.height() - 2 * inset, -mCornerRadius, mEdgeShadowPaint);
+					mButtonBounds.height() - 2 * inset, -mCornerRadius + mInsetShadow,
+					mEdgeShadowPaint);
 		}
 		canvas.restoreToCount(saved);
 		// RT
@@ -253,15 +262,17 @@ class RoundRectDrawableWithShadow extends Drawable {
 		canvas.drawPath(mCornerShadowPath, mCornerShadowPaint);
 		if (drawVerticalEdges) {
 			canvas.drawRect(0, edgeShadowTop,
-					mButtonBounds.height() - 2 * inset, -mCornerRadius, mEdgeShadowPaint);
+					mButtonBounds.height() - 2 * inset, -mCornerRadius + mInsetShadow,
+					mEdgeShadowPaint);
 		}
 		canvas.restoreToCount(saved);
 	}
 
 	private void buildShadowCorners() {
-		RectF innerBounds = new RectF(-mCornerRadius, -mCornerRadius, mCornerRadius, mCornerRadius);
-		RectF outerBounds = new RectF(innerBounds);
-		outerBounds.inset(-mShadowSize, -mShadowSize);
+		float innerRadius = mCornerRadius - mInsetShadow;
+		float outerRadius = mCornerRadius + mRawShadowSize;
+		RectF innerBounds = new RectF(-innerRadius, -innerRadius, innerRadius, innerRadius);
+		RectF outerBounds = new RectF(-outerRadius, -outerRadius, outerRadius, outerRadius);
 
 		if (mCornerShadowPath == null) {
 			mCornerShadowPath = new Path();
@@ -269,27 +280,29 @@ class RoundRectDrawableWithShadow extends Drawable {
 			mCornerShadowPath.reset();
 		}
 		mCornerShadowPath.setFillType(Path.FillType.EVEN_ODD);
-		mCornerShadowPath.moveTo(-mCornerRadius, 0);
-		mCornerShadowPath.rLineTo(-mShadowSize, 0);
+		mCornerShadowPath.moveTo(-innerRadius, 0);
+		mCornerShadowPath.lineTo(-outerRadius, 0);
 		// outer arc
 		mCornerShadowPath.arcTo(outerBounds, 180f, 90f, false);
 		// inner arc
 		mCornerShadowPath.arcTo(innerBounds, 270f, -90f, false);
 		mCornerShadowPath.close();
 
-		float startRatio = mCornerRadius / (mCornerRadius + mShadowSize);
-		mCornerShadowPaint.setShader(new RadialGradient(0, 0, mCornerRadius + mShadowSize,
-				new int[]{mShadowStartColor, mShadowStartColor, mShadowEndColor},
-				new float[]{0f, startRatio, 1f}
-				, Shader.TileMode.CLAMP));
+		final float startRatio = innerRadius / outerRadius; //(innerRadius + outerRadius);
+		final int[] colors = new int[]{mShadowStartColor, mShadowStartColor, mShadowEndColor};
+		final float[] stops = new float[]{0.0f, startRatio, 1.0f};
+		RadialGradient radialGradient = new RadialGradient(0, 0, outerRadius,
+				colors, stops, Shader.TileMode.CLAMP);
+		mCornerShadowPaint.setShader(radialGradient);
 
 		// we offset the content shadowSize/2 pixels up to make it more realistic.
 		// this is why edge shadow shader has some extra space
 		// When drawing bottom edge shadow, we use that extra space.
-		mEdgeShadowPaint.setShader(new LinearGradient(0, -mCornerRadius + mShadowSize, 0,
-				-mCornerRadius - mShadowSize,
-				new int[]{mShadowStartColor, mShadowStartColor, mShadowEndColor},
-				new float[]{0f, .5f, 1f}, Shader.TileMode.CLAMP));
+		LinearGradient linearGradient = new LinearGradient(
+				0, 0,
+				0, -outerRadius,
+				colors, stops, Shader.TileMode.CLAMP);
+		mEdgeShadowPaint.setShader(linearGradient);
 	}
 
 	private void buildComponents(Rect bounds) {
