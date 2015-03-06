@@ -31,6 +31,7 @@
 			app:fabElevation="@dimen/fab_elevation"
 			app:fabMaxElevation="@dimen/fab_max_elevation"
 			app:fabBackgroundColor="@color/color_accent"
+			app:fabSelectedColor="@color/color_accent_dark"
 			app:fabPreventCornerOverlap="false"
 			app:fabCornerRadius="24dp"
 			app:fabUseCompatPadding="true"/>
@@ -52,6 +53,7 @@
 			app:fabElevation="@dimen/fab_elevation"
 			app:fabMaxElevation="@dimen/fab_max_elevation"
 			app:fabBackgroundColor="@color/color_primary"
+			app:fabSelectedColor="@color/color_primary_dark"
 			app:fabPreventCornerOverlap="false"
 			app:fabCornerRadius="@dimen/fab_radius"
 			app:fabUseCompatPadding="true"/>

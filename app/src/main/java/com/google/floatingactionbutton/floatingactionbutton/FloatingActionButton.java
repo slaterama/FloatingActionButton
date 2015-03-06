@@ -22,6 +22,7 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -291,6 +292,11 @@ public class FloatingActionButton extends ImageButton implements FloatingActionB
 		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.FloatingActionButton, defStyleAttr,
 				R.style.FloatingActionButton_Light);
 		int backgroundColor = a.getColor(R.styleable.FloatingActionButton_fabBackgroundColor, 0);
+
+		TypedValue value = new TypedValue();
+		boolean result = a.getValue(R.styleable.FloatingActionButton_fabSelectedColor, value);
+
+
 		int selectedColor = a.getColor(R.styleable.FloatingActionButton_fabSelectedColor, 0);
 		float radius = a.getDimension(R.styleable.FloatingActionButton_fabCornerRadius, 0);
 		float elevation = a.getDimension(R.styleable.FloatingActionButton_fabElevation, 0);

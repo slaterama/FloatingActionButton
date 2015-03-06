@@ -4,6 +4,7 @@
 	<color name="color_primary">#03a9f4</color>
 	<color name="color_primary_dark">#0288d1</color>
 	<color name="color_accent">#ff4081</color>
+	<color name="color_accent_dark">#c51162</color>
 
 	<!-- Background color for light CardView. -->
 	<color name="fab_light_background">#FFFAFAFA</color>

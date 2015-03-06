@@ -20,6 +20,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.drawable.StateListDrawable;
 import android.view.View;
 
 class FloatingActionButtonEclairMr1 implements FloatingActionButtonImpl {
@@ -72,10 +73,18 @@ class FloatingActionButtonEclairMr1 implements FloatingActionButtonImpl {
 		RoundRectDrawableWithShadow background = createBackground(context, backgroundColor, radius,
 				elevation, maxElevation);
 
-		// TODO selected color
+		RoundRectDrawableWithShadow backgroundSelected = createBackground(context, selectedColor, radius,
+				elevation, maxElevation);
 
 		background.setAddPaddingForCorners(fab.getPreventCornerOverlap());
-		fab.setBackgroundDrawable(background);
+		backgroundSelected.setAddPaddingForCorners(fab.getPreventCornerOverlap());
+
+		StateListDrawable states = new StateListDrawable();
+		states.addState(new int[] {android.R.attr.state_selected}, backgroundSelected);
+		states.addState(new int[] {android.R.attr.state_pressed}, backgroundSelected);
+		states.addState(new int[] {}, background);
+
+		fab.setBackgroundDrawable(states);
 		updatePadding(fab);
 	}
 
@@ -149,6 +158,11 @@ class FloatingActionButtonEclairMr1 implements FloatingActionButtonImpl {
 	}
 
 	private RoundRectDrawableWithShadow getShadowBackground(FloatingActionButtonDelegate fab) {
-		return ((RoundRectDrawableWithShadow) fab.getBackground());
+
+		// TODO Not a great solution
+
+		StateListDrawable stateListDrawable = (StateListDrawable) fab.getBackground();
+		return (RoundRectDrawableWithShadow) stateListDrawable.getCurrent();
+		// return ((RoundRectDrawableWithShadow) fab.getBackground());
 	}
 }

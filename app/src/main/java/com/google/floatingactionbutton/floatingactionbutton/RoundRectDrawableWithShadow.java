@@ -17,7 +17,6 @@ package com.google.floatingactionbutton.floatingactionbutton;
 
 import android.content.res.Resources;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
