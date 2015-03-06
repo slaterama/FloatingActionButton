@@ -291,6 +291,7 @@ public class FloatingActionButton extends ImageButton implements FloatingActionB
 		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.FloatingActionButton, defStyleAttr,
 				R.style.FloatingActionButton_Light);
 		int backgroundColor = a.getColor(R.styleable.FloatingActionButton_fabBackgroundColor, 0);
+		int selectedColor = a.getColor(R.styleable.FloatingActionButton_fabSelectedColor, 0);
 		float radius = a.getDimension(R.styleable.FloatingActionButton_fabCornerRadius, 0);
 		float elevation = a.getDimension(R.styleable.FloatingActionButton_fabElevation, 0);
 		float maxElevation = a.getDimension(R.styleable.FloatingActionButton_fabMaxElevation, 0);
@@ -309,7 +310,7 @@ public class FloatingActionButton extends ImageButton implements FloatingActionB
 			maxElevation = elevation;
 		}
 		a.recycle();
-		IMPL.initialize(this, context, backgroundColor, radius, elevation, maxElevation);
+		IMPL.initialize(this, context, backgroundColor, selectedColor, radius, elevation, maxElevation);
 	}
 
 	/**

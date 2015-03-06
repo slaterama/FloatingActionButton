@@ -20,8 +20,9 @@ import android.content.Context;
  * Interface for platform specific CardView implementations.
  */
 interface FloatingActionButtonImpl {
-	void initialize(FloatingActionButtonDelegate fab, Context context, int backgroundColor, float radius,
-					float elevation, float maxElevation);
+	void initialize(FloatingActionButtonDelegate fab, Context context,
+					int backgroundColor, int selectedColor,
+					float radius, float elevation, float maxElevation);
 
 	void setRadius(FloatingActionButtonDelegate fab, float radius);
 

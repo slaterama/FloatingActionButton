@@ -2,6 +2,7 @@
 
 	<style name="FloatingActionButton">
 		<item name="fabBackgroundColor">@color/fab_light_background</item>
+		<item name="fabSelectedColor">?android:attr/colorControlHighlight</item>
 		<item name="fabCornerRadius">@dimen/fab_default_radius</item>
 		<item name="fabElevation">@dimen/fab_default_elevation</item>
 		<item name="fabMaxElevation">@dimen/fab_default_elevation</item>

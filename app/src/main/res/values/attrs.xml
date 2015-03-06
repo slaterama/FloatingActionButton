@@ -4,6 +4,8 @@
 	<declare-styleable name="FloatingActionButton">
 		<!-- Background color for FloatingActionButton. -->
 		<attr name="fabBackgroundColor" format="color" />
+		<!-- Selected/ripple color for FloatingActionButton. -->
+		<attr name="fabSelectedColor" format="color" />
 		<!-- Corner radius for FloatingActionButton. -->
 		<attr name="fabCornerRadius" format="dimension" />
 		<!-- Elevation for FloatingActionButton. -->

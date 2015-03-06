@@ -66,10 +66,14 @@ class FloatingActionButtonEclairMr1 implements FloatingActionButtonImpl {
 	}
 
 	@Override
-	public void initialize(FloatingActionButtonDelegate fab, Context context, int backgroundColor,
+	public void initialize(FloatingActionButtonDelegate fab, Context context,
+						   int backgroundColor, int selectedColor,
 						   float radius, float elevation, float maxElevation) {
 		RoundRectDrawableWithShadow background = createBackground(context, backgroundColor, radius,
 				elevation, maxElevation);
+
+		// TODO selected color
+
 		background.setAddPaddingForCorners(fab.getPreventCornerOverlap());
 		fab.setBackgroundDrawable(background);
 		updatePadding(fab);

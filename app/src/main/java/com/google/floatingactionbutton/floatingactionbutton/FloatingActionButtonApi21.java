@@ -17,18 +17,18 @@ package com.google.floatingactionbutton.floatingactionbutton;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.Outline;
 import android.os.Build;
 import android.view.View;
-import android.view.ViewOutlineProvider;
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 class FloatingActionButtonApi21 implements FloatingActionButtonImpl {
 
 	@Override
-	public void initialize(FloatingActionButtonDelegate fab, Context context, int backgroundColor,
+	public void initialize(FloatingActionButtonDelegate fab, Context context,
+						   int backgroundColor, int selectedColor,
 						   float radius, float elevation, float maxElevation) {
-		final RoundRectDrawable backgroundDrawable = new RoundRectDrawable(backgroundColor, radius);
+		final RippleRoundRectDrawable backgroundDrawable =
+				new RippleRoundRectDrawable(backgroundColor, selectedColor, radius);
 		fab.setBackgroundDrawable(backgroundDrawable);
 		View view = (View) fab;
 		view.setClipToOutline(true);
@@ -54,7 +54,7 @@ class FloatingActionButtonApi21 implements FloatingActionButtonImpl {
 
 	@Override
 	public void setRadius(FloatingActionButtonDelegate fab, float radius) {
-		((RoundRectDrawable) (fab.getBackground())).setRadius(radius);
+		((RippleRoundRectDrawable) (fab.getBackground())).getContent().setRadius(radius);
 	}
 
 	@Override
@@ -63,14 +63,14 @@ class FloatingActionButtonApi21 implements FloatingActionButtonImpl {
 
 	@Override
 	public void setMaxElevation(FloatingActionButtonDelegate fab, float maxElevation) {
-		((RoundRectDrawable) (fab.getBackground())).setPadding(maxElevation,
+		((RippleRoundRectDrawable) (fab.getBackground())).getContent().setPadding(maxElevation,
 				fab.getUseCompatPadding(), fab.getPreventCornerOverlap());
 		updatePadding(fab);
 	}
 
 	@Override
 	public float getMaxElevation(FloatingActionButtonDelegate fab) {
-		return ((RoundRectDrawable) (fab.getBackground())).getPadding();
+		return ((RippleRoundRectDrawable) (fab.getBackground())).getContent().getPadding();
 	}
 
 	@Override
@@ -85,7 +85,7 @@ class FloatingActionButtonApi21 implements FloatingActionButtonImpl {
 
 	@Override
 	public float getRadius(FloatingActionButtonDelegate fab) {
-		return ((RoundRectDrawable) (fab.getBackground())).getRadius();
+		return ((RippleRoundRectDrawable) (fab.getBackground())).getContent().getRadius();
 	}
 
 	@Override
