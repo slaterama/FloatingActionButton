@@ -68,20 +68,19 @@ class FloatingActionButtonEclairMr1 implements FloatingActionButtonImpl {
 
 	@Override
 	public void initialize(FloatingActionButtonDelegate fab, Context context,
-						   int backgroundColor, int selectedColor,
+						   int backgroundColor, int pressedColor,
 						   float radius, float elevation, float maxElevation) {
 		RoundRectDrawableWithShadow background = createBackground(context, backgroundColor, radius,
 				elevation, maxElevation);
 
-		RoundRectDrawableWithShadow backgroundSelected = createBackground(context, selectedColor, radius,
+		RoundRectDrawableWithShadow backgroundPressed = createBackground(context, pressedColor, radius,
 				elevation, maxElevation);
 
 		background.setAddPaddingForCorners(fab.getPreventCornerOverlap());
-		backgroundSelected.setAddPaddingForCorners(fab.getPreventCornerOverlap());
+		backgroundPressed.setAddPaddingForCorners(fab.getPreventCornerOverlap());
 
 		StateListDrawable states = new StateListDrawable();
-		states.addState(new int[] {android.R.attr.state_selected}, backgroundSelected);
-		states.addState(new int[] {android.R.attr.state_pressed}, backgroundSelected);
+		states.addState(new int[] {android.R.attr.state_pressed}, backgroundPressed);
 		states.addState(new int[] {}, background);
 
 		fab.setBackgroundDrawable(states);

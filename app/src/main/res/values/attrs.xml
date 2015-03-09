@@ -2,10 +2,13 @@
 <resources>
 
 	<declare-styleable name="FloatingActionButton">
+
+		<attr name="roundedRectButtonColor" format="color" />
+
 		<!-- Background color for FloatingActionButton. -->
 		<attr name="fabBackgroundColor" format="color" />
-		<!-- Selected/ripple color for FloatingActionButton. -->
-		<attr name="fabSelectedColor" format="color" />
+		<!-- Pressed/ripple color for FloatingActionButton. -->
+		<attr name="fabPressedColor" format="color" />
 		<!-- Corner radius for FloatingActionButton. -->
 		<attr name="fabCornerRadius" format="dimension" />
 		<!-- Elevation for FloatingActionButton. -->

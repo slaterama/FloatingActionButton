@@ -21,7 +21,7 @@ import android.content.Context;
  */
 interface FloatingActionButtonImpl {
 	void initialize(FloatingActionButtonDelegate fab, Context context,
-					int backgroundColor, int selectedColor,
+					int backgroundColor, int pressedColor,
 					float radius, float elevation, float maxElevation);
 
 	void setRadius(FloatingActionButtonDelegate fab, float radius);

@@ -31,7 +31,7 @@
 			app:fabElevation="@dimen/fab_elevation"
 			app:fabMaxElevation="@dimen/fab_max_elevation"
 			app:fabBackgroundColor="@color/color_accent"
-			app:fabSelectedColor="@color/color_accent_dark"
+			app:fabPressedColor="@color/color_accent_dark"
 			app:fabPreventCornerOverlap="false"
 			app:fabCornerRadius="24dp"
 			app:fabUseCompatPadding="true"/>
@@ -53,42 +53,11 @@
 			app:fabElevation="@dimen/fab_elevation"
 			app:fabMaxElevation="@dimen/fab_max_elevation"
 			app:fabBackgroundColor="@color/color_primary"
-			app:fabSelectedColor="@color/color_primary_dark"
+			app:fabPressedColor="@color/color_primary_dark"
 			app:fabPreventCornerOverlap="false"
 			app:fabCornerRadius="@dimen/fab_radius"
 			app:fabUseCompatPadding="true"/>
 
 	</FrameLayout>
-
-	<!--
-	<FrameLayout
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:layout_marginTop="16dp"
-		android:background="#FFF">
-
-		<com.google.floatingactionbutton.floatingactionbutton.CardViewEx
-			android:id="@+id/cardview"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:src="@drawable/ic_add_white_24dp"
-			app:cardElevation="@dimen/fab_elevation"
-			app:cardMaxElevation="@dimen/fab_max_elevation"
-			app:cardBackgroundColor="@color/color_accent"
-			app:cardPreventCornerOverlap="false"
-			app:cardCornerRadius="@dimen/fab_radius"
-			app:cardUseCompatPadding="true">
-
-			<ImageView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center"
-				android:src="@drawable/ic_add_white_24dp"/>
-
-		</com.google.floatingactionbutton.floatingactionbutton.CardViewEx>
-
-	</FrameLayout>
-	-->
 
 </LinearLayout>

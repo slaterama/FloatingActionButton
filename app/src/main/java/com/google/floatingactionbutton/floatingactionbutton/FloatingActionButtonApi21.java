@@ -23,12 +23,16 @@ import android.view.View;
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 class FloatingActionButtonApi21 implements FloatingActionButtonImpl {
 
+	protected static RippleRoundRectDrawable getFabBackground(FloatingActionButtonDelegate fab) {
+		return (RippleRoundRectDrawable) fab.getBackground();
+	}
+
 	@Override
 	public void initialize(FloatingActionButtonDelegate fab, Context context,
-						   int backgroundColor, int selectedColor,
+						   int backgroundColor, int pressedColor,
 						   float radius, float elevation, float maxElevation) {
 		final RippleRoundRectDrawable backgroundDrawable =
-				new RippleRoundRectDrawable(backgroundColor, selectedColor, radius);
+				new RippleRoundRectDrawable(backgroundColor, pressedColor, radius);
 		fab.setBackgroundDrawable(backgroundDrawable);
 		View view = (View) fab;
 		view.setClipToOutline(true);
@@ -54,7 +58,7 @@ class FloatingActionButtonApi21 implements FloatingActionButtonImpl {
 
 	@Override
 	public void setRadius(FloatingActionButtonDelegate fab, float radius) {
-		((RippleRoundRectDrawable) (fab.getBackground())).getContent().setRadius(radius);
+		getFabBackground(fab).getContent().setRadius(radius);
 	}
 
 	@Override
@@ -63,14 +67,14 @@ class FloatingActionButtonApi21 implements FloatingActionButtonImpl {
 
 	@Override
 	public void setMaxElevation(FloatingActionButtonDelegate fab, float maxElevation) {
-		((RippleRoundRectDrawable) (fab.getBackground())).getContent().setPadding(maxElevation,
+		getFabBackground(fab).getContent().setPadding(maxElevation,
 				fab.getUseCompatPadding(), fab.getPreventCornerOverlap());
 		updatePadding(fab);
 	}
 
 	@Override
 	public float getMaxElevation(FloatingActionButtonDelegate fab) {
-		return ((RippleRoundRectDrawable) (fab.getBackground())).getContent().getPadding();
+		return getFabBackground(fab).getContent().getPadding();
 	}
 
 	@Override
@@ -85,7 +89,7 @@ class FloatingActionButtonApi21 implements FloatingActionButtonImpl {
 
 	@Override
 	public float getRadius(FloatingActionButtonDelegate fab) {
-		return ((RippleRoundRectDrawable) (fab.getBackground())).getContent().getRadius();
+		return getFabBackground(fab).getContent().getRadius();
 	}
 
 	@Override

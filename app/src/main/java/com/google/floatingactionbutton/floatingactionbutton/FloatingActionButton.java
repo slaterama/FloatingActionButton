@@ -60,6 +60,7 @@ import com.google.floatingactionbutton.R;
  * should call {@link #setSupportMaxElevation(float)} when CardView is initialized.
  *
  * @attr ref android.support.v7.cardview.R.styleable#FloatingActionButton_fabBackgroundColor
+ * @attr ref android.support.v7.cardview.R.styleable#FloatingActionButton_fabPressedColor
  * @attr ref android.support.v7.cardview.R.styleable#FloatingActionButton_fabCornerRadius
  * @attr ref android.support.v7.cardview.R.styleable#FloatingActionButton_fabElevation
  * @attr ref android.support.v7.cardview.R.styleable#FloatingActionButton_fabMaxElevation
@@ -179,13 +180,6 @@ public class FloatingActionButton extends ImageButton implements FloatingActionB
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 
-		String resourceEntryName = "??";
-		if (!isInEditMode()) {
-			resourceEntryName = getContext().getResources().getResourceEntryName(getId());
-		}
-
-		boolean includePadding = (getUseCompatPadding() || Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP);
-
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
 		int superMeasuredWidthAndState = ViewCompat.getMeasuredWidthAndState(this);
@@ -196,6 +190,13 @@ public class FloatingActionButton extends ImageButton implements FloatingActionB
 
 		int superMeasuredHeight = superMeasuredHeightAndState & View.MEASURED_SIZE_MASK;
 		int superMeasuredHeightState = superMeasuredHeightAndState & View.MEASURED_STATE_MASK;
+
+		String resourceEntryName = "??";
+		if (!isInEditMode()) {
+			resourceEntryName = getContext().getResources().getResourceEntryName(getId());
+		}
+
+		boolean includePadding = (getUseCompatPadding() || Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP);
 
 		/*
 		int w = 0;
@@ -294,10 +295,8 @@ public class FloatingActionButton extends ImageButton implements FloatingActionB
 		int backgroundColor = a.getColor(R.styleable.FloatingActionButton_fabBackgroundColor, 0);
 
 		TypedValue value = new TypedValue();
-		boolean result = a.getValue(R.styleable.FloatingActionButton_fabSelectedColor, value);
-
-
-		int selectedColor = a.getColor(R.styleable.FloatingActionButton_fabSelectedColor, 0);
+		boolean result = a.getValue(R.styleable.FloatingActionButton_fabPressedColor, value);
+		int pressedColor = a.getColor(R.styleable.FloatingActionButton_fabPressedColor, 0);
 		float radius = a.getDimension(R.styleable.FloatingActionButton_fabCornerRadius, 0);
 		float elevation = a.getDimension(R.styleable.FloatingActionButton_fabElevation, 0);
 		float maxElevation = a.getDimension(R.styleable.FloatingActionButton_fabMaxElevation, 0);
@@ -316,7 +315,7 @@ public class FloatingActionButton extends ImageButton implements FloatingActionB
 			maxElevation = elevation;
 		}
 		a.recycle();
-		IMPL.initialize(this, context, backgroundColor, selectedColor, radius, elevation, maxElevation);
+		IMPL.initialize(this, context, backgroundColor, pressedColor, radius, elevation, maxElevation);
 	}
 
 	/**

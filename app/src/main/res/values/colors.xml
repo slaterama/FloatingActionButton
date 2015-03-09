@@ -14,5 +14,5 @@
 	<color name="fab_shadow_start_color">#30000000</color>
 	<!-- Shadow color for the furthest pixels around CardView. -->
 	<color name="fab_shadow_end_color">#00000000</color>
-	
+
 </resources>
