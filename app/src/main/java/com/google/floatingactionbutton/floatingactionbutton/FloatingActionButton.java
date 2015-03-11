@@ -176,7 +176,6 @@ public class FloatingActionButton extends ImageButton implements FloatingActionB
 		IMPL.updatePadding(this);
 	}
 
-	@SuppressWarnings("all")
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 
@@ -191,10 +190,12 @@ public class FloatingActionButton extends ImageButton implements FloatingActionB
 		int superMeasuredHeight = superMeasuredHeightAndState & View.MEASURED_SIZE_MASK;
 		int superMeasuredHeightState = superMeasuredHeightAndState & View.MEASURED_STATE_MASK;
 
+		/*
 		String resourceEntryName = "??";
 		if (!isInEditMode()) {
 			resourceEntryName = getContext().getResources().getResourceEntryName(getId());
 		}
+		*/
 
 		boolean includePadding = (getUseCompatPadding() || Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP);
 
@@ -219,26 +220,26 @@ public class FloatingActionButton extends ImageButton implements FloatingActionB
 		boolean resizeHeight = heightMode != MeasureSpec.EXACTLY;
 		*/
 
-		final String widthModeString = ViewUtils.measureSpecModeToString(widthMode);
-		final String heightModeString = ViewUtils.measureSpecModeToString(heightMode);
+		//final String widthModeString = ViewUtils.measureSpecModeToString(widthMode);
+		//final String heightModeString = ViewUtils.measureSpecModeToString(heightMode);
 
 		float elevationFactor = (includePadding ? getSupportMaxElevation() : 0);
 		int fabWidth = (int) ((getRadius() + elevationFactor) * 2);
 		int resolvedWidthSizeAndState = resolveSizeAndState(
 				Math.max(fabWidth, superMeasuredWidth), widthMeasureSpec, superMeasuredWidthState);
-		int resolvedWidth = resolvedWidthSizeAndState & View.MEASURED_SIZE_MASK;
-		int resolvedWidthState = resolvedWidthSizeAndState & View.MEASURED_STATE_MASK;
+		int resolvedWidth = resolvedWidthSizeAndState & ViewCompat.MEASURED_SIZE_MASK;
+		int resolvedWidthState = resolvedWidthSizeAndState & ViewCompat.MEASURED_STATE_MASK;
 
 		elevationFactor *= RoundRectDrawableWithShadow.SHADOW_MULTIPLIER;
 		int fabHeight = (int) ((getRadius() + elevationFactor) * 2);
 		int resolvedHeightSizeAndState = resolveSizeAndState(
 				Math.max(fabHeight, superMeasuredHeight), heightMeasureSpec, superMeasuredHeightState);
-		int resolvedHeight = resolvedHeightSizeAndState & View.MEASURED_SIZE_MASK;
-		int resolvedHeightState = resolvedHeightSizeAndState & View.MEASURED_STATE_MASK;
+		int resolvedHeight = resolvedHeightSizeAndState & ViewCompat.MEASURED_SIZE_MASK;
+		int resolvedHeightState = resolvedHeightSizeAndState & ViewCompat.MEASURED_STATE_MASK;
 
-		float density = getContext().getResources().getDisplayMetrics().density;
-		int resolvedWidthDp = (int) (resolvedWidth / density);
-		int resolvedHeightDp = (int) (resolvedHeight / density);
+//		float density = getContext().getResources().getDisplayMetrics().density;
+//		int resolvedWidthDp = (int) (resolvedWidth / density);
+//		int resolvedHeightDp = (int) (resolvedHeight / density);
 //		LogEx.d(String.format("fab=%s, resolvedWidthDp=%d, resolvedHeightDp=%d", resourceEntryName, resolvedWidthDp, resolvedHeightDp));
 
 		//if (resizeWidth || resizeHeight) {
@@ -371,6 +372,7 @@ public class FloatingActionButton extends ImageButton implements FloatingActionB
 	 * @return Corner radius of the CardView
 	 * @see #getRadius()
 	 */
+	@Override
 	public float getRadius() {
 		return IMPL.getRadius(this);
 	}
