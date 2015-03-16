@@ -28,9 +28,21 @@ public class RoundedButton extends Button
 		}
 	}
 
+	protected static void updateOverlapPadding(float cornerRadius, boolean preventCornerOverlap,
+	                                           Rect overlapPadding) {
+		if (preventCornerOverlap) {
+			int padding = (int) Math.ceil((1 - COS_45) * cornerRadius);
+			overlapPadding.set(padding, padding, padding, padding);
+		} else {
+			overlapPadding.setEmpty();
+		}
+	}
+
 	protected boolean mPreventCornerOverlap;
 
 	protected final Rect mShadowPadding = new Rect();
+
+	protected final Rect mOverlapPadding = new Rect();
 
 	protected final Rect mContentPadding = new Rect();
 
@@ -41,7 +53,7 @@ public class RoundedButton extends Button
 	}
 
 	public RoundedButton(Context context, AttributeSet attrs) {
-		this(context, attrs, R.attr.roundedImageButtonStyle);
+		this(context, attrs, R.attr.roundedButtonStyle);
 	}
 
 	public RoundedButton(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -74,6 +86,7 @@ public class RoundedButton extends Button
 				R.styleable.RoundedButton_roundedBtnUseCompatPadding, false);
 		mPreventCornerOverlap = a.getBoolean(
 				R.styleable.RoundedButton_roundedBtnPreventCornerOverlap, true);
+		updateOverlapPadding(cornerRadius, mPreventCornerOverlap, mOverlapPadding);
 
 		int defaultPadding = a.getDimensionPixelOffset(
 				R.styleable.RoundedButton_roundedBtnContentPadding, 0);
@@ -156,41 +169,39 @@ public class RoundedButton extends Button
 	public void setPreventCornerOverlap(boolean preventCornerOverlap) {
 		if (preventCornerOverlap != mPreventCornerOverlap) {
 			mPreventCornerOverlap = preventCornerOverlap;
-			// TODO
+			updateOverlapPadding(getCornerRadius(), preventCornerOverlap, mOverlapPadding);
+			updatePadding();
 		}
 	}
 
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-		/*
+
 		int measuredWidthAndState = ViewCompat.getMeasuredWidthAndState(this);
 		int measuredHeightAndState = ViewCompat.getMeasuredHeightAndState(this);
-		// int measuredWidth = measuredWidthAndState & ViewCompat.MEASURED_SIZE_MASK;
+		int measuredWidth = measuredWidthAndState & ViewCompat.MEASURED_SIZE_MASK;
 		int measuredWidthState = measuredWidthAndState & ViewCompat.MEASURED_STATE_MASK;
-		// int measuredHeight = measuredHeightAndState & ViewCompat.MEASURED_SIZE_MASK;
+		int measuredHeight = measuredHeightAndState & ViewCompat.MEASURED_SIZE_MASK;
 		int measuredHeightState = measuredHeightAndState & ViewCompat.MEASURED_STATE_MASK;
 
 		float cornerRadius = mImpl.getCornerRadius();
-		int fabWidth = (int) (2 * cornerRadius) + mShadowPadding.left + mShadowPadding.right;
-		int fabHeight = (int) (2 * cornerRadius) + mShadowPadding.top + mShadowPadding.bottom;
-		int resolvedWidthSizeAndState = ViewCompat.resolveSizeAndState(fabWidth, widthMeasureSpec,
-				measuredWidthState);
-		int resolvedHeightSizeAndState = ViewCompat.resolveSizeAndState(fabHeight,
-				heightMeasureSpec, measuredHeightState);
+		int minWidth = (int) (2 * cornerRadius) + mShadowPadding.left + mShadowPadding.right;
+		int minHeight = (int) (2 * cornerRadius) + mShadowPadding.top + mShadowPadding.bottom;
+		int resolvedWidthSizeAndState = ViewCompat.resolveSizeAndState(
+				Math.max(measuredWidth, minWidth), widthMeasureSpec, measuredWidthState);
+		int resolvedHeightSizeAndState = ViewCompat.resolveSizeAndState(
+				Math.max(measuredHeight, minHeight), heightMeasureSpec, measuredHeightState);
 		int resolvedWidth = resolvedWidthSizeAndState & ViewCompat.MEASURED_SIZE_MASK;
 		int resolvedHeight = resolvedHeightSizeAndState & ViewCompat.MEASURED_SIZE_MASK;
+
 		setMeasuredDimension(resolvedWidth, resolvedHeight);
-		*/
 	}
 
 	public void updatePadding() {
-		// TODO account for mPreventCornerOverlap
-		float overlapPadding = 0.0f;
-
-		super.setPadding((int) (mShadowPadding.left + mContentPadding.left + overlapPadding),
-				(int) (mShadowPadding.top + mContentPadding.top + overlapPadding),
-				(int) (mShadowPadding.right + mContentPadding.right + overlapPadding),
-				(int) (mShadowPadding.bottom + mContentPadding.bottom + overlapPadding));
+		super.setPadding(mShadowPadding.left + mOverlapPadding.left + mContentPadding.left,
+				mShadowPadding.top + mOverlapPadding.top + mContentPadding.top,
+				mShadowPadding.right + mOverlapPadding.right + mContentPadding.right,
+				mShadowPadding.bottom + mOverlapPadding.bottom + mContentPadding.bottom);
 	}
 }
