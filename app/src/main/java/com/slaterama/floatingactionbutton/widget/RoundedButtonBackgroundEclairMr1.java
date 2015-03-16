@@ -121,15 +121,18 @@ public class RoundedButtonBackgroundEclairMr1 extends Drawable
 
 	@Override
 	protected boolean onStateChange(int[] stateSet) {
+		boolean animate = false;
 		if (StateSet.stateSetMatches(SPECS_ENABLED_PRESSED, stateSet) && !mPressed) {
 			animateShadow(true);
+			animate = true;
 		} else if (StateSet.stateSetMatches(SPECS_DEFAULT, stateSet) && mPressed) {
 			animateShadow(false);
+			animate = true;
 		}
 
 		int color = mColor.getColorForState(stateSet, mColor.getDefaultColor());
 		if (mPaint.getColor() == color) {
-			return super.onStateChange(stateSet);
+			return super.onStateChange(stateSet) || animate;
 		} else {
 			mPaint.setColor(color);
 			invalidateSelf();
