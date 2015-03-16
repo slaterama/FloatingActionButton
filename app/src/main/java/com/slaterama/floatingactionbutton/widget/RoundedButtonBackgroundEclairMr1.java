@@ -184,6 +184,7 @@ public class RoundedButtonBackgroundEclairMr1 extends Drawable
 			mCornerRadius = cornerRadius;
 			mDirty = true;
 			invalidateSelf();
+			mDelegate.getView().requestLayout();
 		}
 	}
 
