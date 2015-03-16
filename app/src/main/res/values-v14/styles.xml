@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<style name="Widget.Material.RoundedImageButton" parent="android:Widget.Material.ImageButton">
-		<item name="roundedBtnColor">@color/rounded_btn_color_material</item>
+	<style name="Widget.Holo.RoundedImageButton" parent="android:Widget.Holo.ImageButton">
+		<item name="roundedBtnColor">@color/rounded_btn_color_holo_dark</item>
 		<item name="roundedBtnCornerRadius">@dimen/rounded_btn_default_corner_radius</item>
 		<item name="roundedBtnElevation">@dimen/rounded_btn_default_elevation</item>
 		<item name="roundedBtnMaxElevation">@dimen/rounded_btn_default_max_elevation</item>
@@ -10,8 +10,8 @@
 		<item name="roundedBtnPreventCornerOverlap">true</item>
 	</style>
 
-	<style name="Widget.Material.Light.RoundedImageButton" parent="android:Widget.Material.Light.ImageButton">
-		<item name="roundedBtnColor">@color/rounded_btn_color_material</item>
+	<style name="Widget.Holo.Light.RoundedImageButton" parent="android:Widget.Holo.Light.ImageButton">
+		<item name="roundedBtnColor">@color/rounded_btn_color_holo_light</item>
 		<item name="roundedBtnCornerRadius">@dimen/rounded_btn_default_corner_radius</item>
 		<item name="roundedBtnElevation">@dimen/rounded_btn_default_elevation</item>
 		<item name="roundedBtnMaxElevation">@dimen/rounded_btn_default_max_elevation</item>
@@ -19,8 +19,8 @@
 		<item name="roundedBtnPreventCornerOverlap">true</item>
 	</style>
 
-	<style name="Widget.Material.FloatingActionButton" parent="android:Widget.Material.ImageButton">
-		<item name="fabColor">@color/fab_color_material</item>
+	<style name="Widget.Holo.FloatingActionButton" parent="android:Widget.Holo.ImageButton">
+		<item name="fabColor">@color/fab_color_holo_dark</item>
 		<item name="fabCornerRadius">@dimen/fab_default_corner_radius</item>
 		<item name="fabElevation">@dimen/fab_default_elevation</item>
 		<item name="fabMaxElevation">@dimen/fab_default_max_elevation</item>
@@ -28,7 +28,15 @@
 		<!--<item name="fabPreventCornerOverlap">false</item>-->
 	</style>
 
-	<style name="Widget.Material.FloatingActionButton.Small">
+	<style name="Widget.Holo.Light.FloatingActionButton" parent="Widget.Holo.FloatingActionButton">
+		<item name="fabColor">@color/fab_color_holo_light</item>
+	</style>
+
+	<style name="Widget.Holo.FloatingActionButton.Small">
+		<item name="fabCornerRadius">@dimen/fab_small_default_corner_radius</item>
+	</style>
+
+	<style name="Widget.Holo.Light.FloatingActionButton.Small">
 		<item name="fabCornerRadius">@dimen/fab_small_default_corner_radius</item>
 	</style>
 

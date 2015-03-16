@@ -1,20 +1,19 @@
 <resources>
-
 	<!-- Default screen margins, per the Android Design guidelines. -->
 	<dimen name="activity_horizontal_margin">16dp</dimen>
 	<dimen name="activity_vertical_margin">16dp</dimen>
 
-	<!-- Default radius for FloatingActionButton corners. -->
-	<dimen name="fab_default_radius">24dp</dimen>
-	<!-- Elevation value to use for FloatingActionButtons. Pre-L, it is equal to shadow size. -->
-	<dimen name="fab_default_elevation">2dp</dimen>
+	<dimen name="rounded_btn_default_corner_radius">2dp</dimen>
+	<dimen name="rounded_btn_default_elevation">2dp</dimen>
+	<dimen name="rounded_btn_default_max_elevation">8dp</dimen>
+
 	<!-- Inset shadow for RoundRectDrawableWithShadow. It is used to avoid gaps between the button
 	 and the shadow. -->
-	<dimen name="fab_compat_inset_shadow">1dp</dimen>
+	<dimen name="rounded_btn_compat_inset_shadow">1dp</dimen>
 
-	<dimen name="fab_size">54dp</dimen>
-	<dimen name="fab_radius">27dp</dimen>
-	<dimen name="fab_max_elevation">12dp</dimen>
-	<dimen name="fab_elevation">6dp</dimen>
+	<dimen name="fab_default_corner_radius">28dp</dimen>
+	<dimen name="fab_default_elevation">2dp</dimen>
+	<dimen name="fab_default_max_elevation">8dp</dimen>
 
+	<dimen name="fab_small_default_corner_radius">20dp</dimen>
 </resources>

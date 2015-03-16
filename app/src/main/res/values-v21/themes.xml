@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- Base application theme. -->
+	<style name="AppTheme.Fab" parent="AppTheme.Base">
+		<item name="roundedImageButtonStyle">@style/Widget.Material.RoundedImageButton</item>
+		<item name="floatingActionButtonStyle">@style/Widget.Material.FloatingActionButton</item>
+		<item name="smallFloatingActionButtonStyle">@style/Widget.Material.FloatingActionButton.Small</item>
+	</style>
+
+</resources>

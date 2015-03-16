@@ -1,22 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<style name="FloatingActionButton">
-		<item name="roundedRectButtonColor"></item>
+	<style name="Widget.RoundedImageButton" parent="android:Widget.ImageButton">
+		<item name="roundedBtnColor">@color/rounded_btn_color</item>
+		<item name="roundedBtnCornerRadius">@dimen/rounded_btn_default_corner_radius</item>
+		<item name="roundedBtnElevation">@dimen/rounded_btn_default_elevation</item>
+		<item name="roundedBtnMaxElevation">@dimen/rounded_btn_default_max_elevation</item>
+		<item name="roundedBtnUseCompatPadding">false</item>
+		<item name="fabPreventCornerOverlap">true</item>
+	</style>
 
-		<item name="fabBackgroundColor">@color/fab_light_background</item>
-		<item name="fabPressedColor">?android:color</item>
-		<item name="fabCornerRadius">@dimen/fab_default_radius</item>
+	<style name="Widget.FloatingActionButton" parent="android:Widget.ImageButton">
+		<item name="fabColor">@color/fab_color</item>
+		<item name="fabCornerRadius">@dimen/fab_default_corner_radius</item>
 		<item name="fabElevation">@dimen/fab_default_elevation</item>
-		<item name="fabMaxElevation">@dimen/fab_default_elevation</item>
+		<item name="fabMaxElevation">@dimen/fab_default_max_elevation</item>
 		<item name="fabUseCompatPadding">false</item>
+		<!--<item name="fabPreventCornerOverlap">false</item>-->
 	</style>
-	
-	<style name="FloatingActionButton.Light">
-		<item name="fabBackgroundColor">@color/fab_light_background</item>
-	</style>
-	
-	<style name="FloatingActionButton.Dark">
-		<item name="fabBackgroundColor">@color/fab_dark_background</item>
+
+	<style name="Widget.FloatingActionButton.Small">
+		<item name="fabCornerRadius">@dimen/fab_small_default_corner_radius</item>
 	</style>
 
 </resources>

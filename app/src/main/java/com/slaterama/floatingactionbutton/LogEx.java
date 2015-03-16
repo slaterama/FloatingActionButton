@@ -1,4 +1,4 @@
-package com.google.floatingactionbutton;
+package com.slaterama.floatingactionbutton;
 
 import android.text.TextUtils;
 import android.util.Log;
