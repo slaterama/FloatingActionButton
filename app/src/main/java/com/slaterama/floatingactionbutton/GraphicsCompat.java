@@ -50,7 +50,8 @@ public class GraphicsCompat {
 						paint);
 
 				//center
-				canvas.drawRect(rect.left, rect.top + ry, rect.right, rect.bottom - ry, paint);
+				canvas.drawRect(rect.left, (float) Math.floor(rect.top + ry), rect.right,
+						(float) Math.ceil(rect.bottom - ry), paint);
 			}
 		}
 
@@ -59,40 +60,6 @@ public class GraphicsCompat {
 		                          float bottom, float rx, float ry, @NonNull Paint paint) {
 			drawRoundRect(canvas, new RectF(left, top, right, bottom), rx, ry, paint);
 		}
-
-		/*
-		@Override
-		public void drawRoundRect(Canvas canvas, RectF bounds, float cornerRadius, Paint paint) {
-			// Draws a round rect using 7 draw operations. This is faster than using
-			// canvas.drawRoundRect before JBMR1 because API 11-16 used alpha mask textures to draw
-			// shapes.
-			final float twoRadius = cornerRadius * 2;
-			final float innerWidth = bounds.width() - twoRadius;
-			final float innerHeight = bounds.height() - twoRadius;
-			mCornerRect.set(bounds.left, bounds.top,
-					bounds.left + cornerRadius * 2, bounds.top + cornerRadius * 2);
-
-			canvas.drawArc(mCornerRect, 180, 90, true, paint);
-			mCornerRect.offset(innerWidth, 0);
-			canvas.drawArc(mCornerRect, 270, 90, true, paint);
-			mCornerRect.offset(0, innerHeight);
-			canvas.drawArc(mCornerRect, 0, 90, true, paint);
-			mCornerRect.offset(-innerWidth, 0);
-			canvas.drawArc(mCornerRect, 90, 90, true, paint);
-
-			//draw top and bottom pieces
-			canvas.drawRect(bounds.left + cornerRadius, bounds.top,
-					bounds.right - cornerRadius, bounds.top + cornerRadius,
-					paint);
-			canvas.drawRect(bounds.left + cornerRadius,
-					bounds.bottom - cornerRadius, bounds.right - cornerRadius,
-					bounds.bottom, paint);
-
-			//center
-			canvas.drawRect(bounds.left, bounds.top + cornerRadius,
-					bounds.right, bounds.bottom - cornerRadius, paint);
-		}
-		*/
 	}
 
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
