@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
 import com.slaterama.floatingactionbutton.GraphicsCompat;
+import com.slaterama.floatingactionbutton.LogEx;
 import com.slaterama.floatingactionbutton.R;
 import com.slaterama.floatingactionbutton.ViewCompatEx;
 
@@ -39,6 +40,7 @@ public class RoundedButtonBackgroundEclairMr1 extends Drawable
 	private final Paint mPaint;
 	private final Paint mCornerShadowPaint;
 	private final Paint mEdgeShadowPaint;
+	private final Paint mSolidPaint;
 	private final long mShortAnimTime;
 
 	final RectF mButtonBounds;
@@ -81,6 +83,11 @@ public class RoundedButtonBackgroundEclairMr1 extends Drawable
 		mCornerShadowPaint.setStyle(Paint.Style.FILL);
 		mCornerShadowPaint.setDither(true);
 		mEdgeShadowPaint = new Paint(mCornerShadowPaint);
+
+		mSolidPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
+		mSolidPaint.setColor(mShadowStartColor);
+		mSolidPaint.setStyle(Paint.Style.FILL);
+		mSolidPaint.setDither(true);
 
 		mButtonBounds = new RectF();
 
@@ -230,6 +237,7 @@ public class RoundedButtonBackgroundEclairMr1 extends Drawable
 	private void drawShadow(Canvas canvas) {
 		float insetShadow = mVisualElevation / 2 + mInsetShadowExtra;
 		final float edgeShadowTop = -mCornerRadius - mVisualElevation;
+		final float edgeShadowBottom = Math.min(-mCornerRadius + insetShadow, 0.0f);
 		float inset = mCornerRadius;
 		final boolean drawHorizontalEdges = mButtonBounds.width() > 2 * mCornerRadius;
 		final boolean drawVerticalEdges = mButtonBounds.height() > 2 * mCornerRadius;
@@ -240,7 +248,7 @@ public class RoundedButtonBackgroundEclairMr1 extends Drawable
 		canvas.drawPath(mCornerShadowPath, mCornerShadowPaint);
 		if (drawHorizontalEdges) {
 			canvas.drawRect(0, edgeShadowTop,
-					mButtonBounds.width() - 2 * inset, -mCornerRadius + insetShadow,
+					mButtonBounds.width() - 2 * inset, edgeShadowBottom,
 					mEdgeShadowPaint);
 		}
 		canvas.restoreToCount(saved);
@@ -251,7 +259,7 @@ public class RoundedButtonBackgroundEclairMr1 extends Drawable
 		canvas.drawPath(mCornerShadowPath, mCornerShadowPaint);
 		if (drawHorizontalEdges) {
 			canvas.drawRect(0, edgeShadowTop,
-					mButtonBounds.width() - 2 * inset, -mCornerRadius + insetShadow,
+					mButtonBounds.width() - 2 * inset, edgeShadowBottom,
 					mEdgeShadowPaint);
 		}
 		canvas.restoreToCount(saved);
@@ -262,7 +270,7 @@ public class RoundedButtonBackgroundEclairMr1 extends Drawable
 		canvas.drawPath(mCornerShadowPath, mCornerShadowPaint);
 		if (drawVerticalEdges) {
 			canvas.drawRect(0, edgeShadowTop,
-					mButtonBounds.height() - 2 * inset, -mCornerRadius + insetShadow,
+					mButtonBounds.height() - 2 * inset, edgeShadowBottom,
 					mEdgeShadowPaint);
 		}
 		canvas.restoreToCount(saved);
@@ -273,15 +281,28 @@ public class RoundedButtonBackgroundEclairMr1 extends Drawable
 		canvas.drawPath(mCornerShadowPath, mCornerShadowPaint);
 		if (drawVerticalEdges) {
 			canvas.drawRect(0, edgeShadowTop,
-					mButtonBounds.height() - 2 * inset, -mCornerRadius + insetShadow,
+					mButtonBounds.height() - 2 * inset, edgeShadowBottom,
 					mEdgeShadowPaint);
 		}
 		canvas.restoreToCount(saved);
+		// Center
+		if (drawHorizontalEdges && drawVerticalEdges) {
+			saved = canvas.save();
+			canvas.translate(mButtonBounds.left + inset, mButtonBounds.top + inset);
+			canvas.drawRect(0, 0,
+					mButtonBounds.width() - 2 * inset, mButtonBounds.height() - 2 * inset,
+					mSolidPaint);
+			canvas.restoreToCount(saved);
+		}
 	}
 
 	private void buildShadowCorners() {
+		if (mVisualElevation == mMaxElevation) {
+//			LogEx.d();
+		}
+
 		float insetShadow = mVisualElevation / 2 + mInsetShadowExtra;
-		float innerRadius = mCornerRadius - insetShadow;
+		float innerRadius = Math.max(mCornerRadius - insetShadow, 0.0f);
 		float outerRadius = mCornerRadius + mVisualElevation;
 		RectF innerBounds = new RectF(-innerRadius, -innerRadius, innerRadius, innerRadius);
 		RectF outerBounds = new RectF(-outerRadius, -outerRadius, outerRadius, outerRadius);

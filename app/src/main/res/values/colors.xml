@@ -7,7 +7,7 @@
 	<color name="color_accent_dark">#c51162</color>
 
 	<!-- Shadow color for the first pixels around RoundedButton. -->
-	<color name="rounded_btn_shadow_start_color">#30000000</color>
+	<color name="rounded_btn_shadow_start_color">#28000000</color>
 	<!-- Shadow color for the furthest pixels around RoundedButton. -->
 	<color name="rounded_btn_shadow_end_color">#00000000</color>
 

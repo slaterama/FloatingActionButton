@@ -5,7 +5,7 @@
 
 	<dimen name="rounded_btn_default_corner_radius">2dp</dimen>
 	<dimen name="rounded_btn_default_elevation">2dp</dimen>
-	<dimen name="rounded_btn_default_max_elevation">8dp</dimen>
+	<dimen name="rounded_btn_default_max_elevation">4dp</dimen>
 
 	<!-- Inset shadow for RoundRectDrawableWithShadow. It is used to avoid gaps between the button
 	 and the shadow. -->

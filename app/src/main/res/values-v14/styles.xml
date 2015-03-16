@@ -8,6 +8,10 @@
 		<item name="roundedBtnMaxElevation">@dimen/rounded_btn_default_max_elevation</item>
 		<item name="roundedBtnUseCompatPadding">false</item>
 		<item name="roundedBtnPreventCornerOverlap">true</item>
+		<item name="roundedBtnContentPaddingLeft">8dp</item>
+		<item name="roundedBtnContentPaddingTop">4dp</item>
+		<item name="roundedBtnContentPaddingRight">8dp</item>
+		<item name="roundedBtnContentPaddingBottom">4dp</item>
 	</style>
 
 	<style name="Widget.Holo.Light.RoundedButton" parent="android:Widget.Holo.Light.Button">
@@ -17,6 +21,10 @@
 		<item name="roundedBtnMaxElevation">@dimen/rounded_btn_default_max_elevation</item>
 		<item name="roundedBtnUseCompatPadding">false</item>
 		<item name="roundedBtnPreventCornerOverlap">true</item>
+		<item name="roundedBtnContentPaddingLeft">8dp</item>
+		<item name="roundedBtnContentPaddingTop">4dp</item>
+		<item name="roundedBtnContentPaddingRight">8dp</item>
+		<item name="roundedBtnContentPaddingBottom">4dp</item>
 	</style>
 
 	<style name="Widget.Holo.RoundedImageButton" parent="android:Widget.Holo.ImageButton">
@@ -26,6 +34,10 @@
 		<item name="roundedBtnMaxElevation">@dimen/rounded_btn_default_max_elevation</item>
 		<item name="roundedBtnUseCompatPadding">false</item>
 		<item name="roundedBtnPreventCornerOverlap">true</item>
+		<item name="roundedBtnContentPaddingLeft">8dp</item>
+		<item name="roundedBtnContentPaddingTop">4dp</item>
+		<item name="roundedBtnContentPaddingRight">8dp</item>
+		<item name="roundedBtnContentPaddingBottom">4dp</item>
 	</style>
 
 	<style name="Widget.Holo.Light.RoundedImageButton" parent="android:Widget.Holo.Light.ImageButton">
@@ -35,6 +47,10 @@
 		<item name="roundedBtnMaxElevation">@dimen/rounded_btn_default_max_elevation</item>
 		<item name="roundedBtnUseCompatPadding">false</item>
 		<item name="roundedBtnPreventCornerOverlap">true</item>
+		<item name="roundedBtnContentPaddingLeft">8dp</item>
+		<item name="roundedBtnContentPaddingTop">4dp</item>
+		<item name="roundedBtnContentPaddingRight">8dp</item>
+		<item name="roundedBtnContentPaddingBottom">4dp</item>
 	</style>
 
 	<style name="Widget.Holo.FloatingActionButton" parent="android:Widget.Holo.ImageButton">
