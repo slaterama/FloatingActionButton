@@ -1,7 +1,7 @@
 package com.slaterama.floatingactionbutton;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -9,7 +9,7 @@ import android.view.View;
 import com.slaterama.floatingactionbutton.widget.FloatingActionButton;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends ActionBarActivity {
 
 	/*
 	private RoundedImageButton mImageButton1;
