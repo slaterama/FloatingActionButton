@@ -30,6 +30,20 @@
 	RoundedButton. -->
 	<attr name="roundedBtnContentPaddingBottom" format="dimension" />
 
+	<declare-styleable name="RoundedButton">
+		<attr name="roundedBtnColor" />
+		<attr name="roundedBtnCornerRadius" />
+		<attr name="roundedBtnElevation" />
+		<attr name="roundedBtnMaxElevation" />
+		<attr name="roundedBtnUseCompatPadding" />
+		<attr name="roundedBtnPreventCornerOverlap" />
+		<attr name="roundedBtnContentPadding" />
+		<attr name="roundedBtnContentPaddingLeft" />
+		<attr name="roundedBtnContentPaddingRight" />
+		<attr name="roundedBtnContentPaddingTop" />
+		<attr name="roundedBtnContentPaddingBottom" />
+	</declare-styleable>
+
 	<declare-styleable name="RoundedImageButton">
 		<attr name="roundedBtnColor" />
 		<attr name="roundedBtnCornerRadius" />
@@ -75,6 +89,9 @@
 		FloatingActionButton. -->
 		<attr name="fabContentPaddingBottom" format="dimension" />
 	</declare-styleable>
+
+	<!-- Normal RoundedButton style. -->
+	<attr name="roundedButtonStyle" format="reference" />
 
 	<!-- Normal RoundedImageButton style. -->
 	<attr name="roundedImageButtonStyle" format="reference" />

@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+	<style name="Widget.Holo.RoundedButton" parent="android:Widget.Holo.Button">
+		<item name="roundedBtnColor">@color/rounded_btn_color_holo_dark</item>
+		<item name="roundedBtnCornerRadius">@dimen/rounded_btn_default_corner_radius</item>
+		<item name="roundedBtnElevation">@dimen/rounded_btn_default_elevation</item>
+		<item name="roundedBtnMaxElevation">@dimen/rounded_btn_default_max_elevation</item>
+		<item name="roundedBtnUseCompatPadding">false</item>
+		<item name="roundedBtnPreventCornerOverlap">true</item>
+	</style>
+
+	<style name="Widget.Holo.Light.RoundedButton" parent="android:Widget.Holo.Light.Button">
+		<item name="roundedBtnColor">@color/rounded_btn_color_holo_light</item>
+		<item name="roundedBtnCornerRadius">@dimen/rounded_btn_default_corner_radius</item>
+		<item name="roundedBtnElevation">@dimen/rounded_btn_default_elevation</item>
+		<item name="roundedBtnMaxElevation">@dimen/rounded_btn_default_max_elevation</item>
+		<item name="roundedBtnUseCompatPadding">false</item>
+		<item name="roundedBtnPreventCornerOverlap">true</item>
+	</style>
+
 	<style name="Widget.Holo.RoundedImageButton" parent="android:Widget.Holo.ImageButton">
 		<item name="roundedBtnColor">@color/rounded_btn_color_holo_dark</item>
 		<item name="roundedBtnCornerRadius">@dimen/rounded_btn_default_corner_radius</item>

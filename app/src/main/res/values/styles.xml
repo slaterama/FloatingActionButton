@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+	<style name="Widget.RoundedButton" parent="android:Widget.Button">
+		<item name="roundedBtnColor">@color/rounded_btn_color</item>
+		<item name="roundedBtnCornerRadius">@dimen/rounded_btn_default_corner_radius</item>
+		<item name="roundedBtnElevation">@dimen/rounded_btn_default_elevation</item>
+		<item name="roundedBtnMaxElevation">@dimen/rounded_btn_default_max_elevation</item>
+		<item name="roundedBtnUseCompatPadding">false</item>
+		<item name="roundedBtnPreventCornerOverlap">true</item>
+	</style>
+
 	<style name="Widget.RoundedImageButton" parent="android:Widget.ImageButton">
 		<item name="roundedBtnColor">@color/rounded_btn_color</item>
 		<item name="roundedBtnCornerRadius">@dimen/rounded_btn_default_corner_radius</item>
 		<item name="roundedBtnElevation">@dimen/rounded_btn_default_elevation</item>
 		<item name="roundedBtnMaxElevation">@dimen/rounded_btn_default_max_elevation</item>
 		<item name="roundedBtnUseCompatPadding">false</item>
-		<item name="fabPreventCornerOverlap">true</item>
+		<item name="roundedBtnPreventCornerOverlap">true</item>
 	</style>
 
 	<style name="Widget.FloatingActionButton" parent="android:Widget.ImageButton">

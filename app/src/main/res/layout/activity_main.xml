@@ -73,6 +73,16 @@
 
 		</FrameLayout>
 
+		<com.slaterama.floatingactionbutton.widget.RoundedButton
+			android:id="@+id/roundedBtn_1"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:layout_marginTop="16dp"
+			android:src="@drawable/ic_add_white_24dp"
+			android:text="@string/click_me"
+			android:onClick="onClick"/>
+
 		<com.slaterama.floatingactionbutton.widget.FloatingActionButton
 			android:id="@+id/fab_2"
 			android:layout_width="wrap_content"
