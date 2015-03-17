@@ -62,7 +62,7 @@
 			android:layout_marginTop="16dp"
 			android:background="#FFF">
 
-			<com.slaterama.floatingactionbutton.widget.FloatingActionButton
+			<com.slaterama.roundedbutton.widget.FloatingActionButton
 				android:id="@+id/fab_1"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
 			android:layout_marginTop="16dp"
 			android:background="#FFF">
 
-			<com.slaterama.floatingactionbutton.widget.RoundedButton
+			<com.slaterama.roundedbutton.widget.RoundedButton
 				android:id="@+id/roundedBtn_1"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
@@ -93,6 +93,8 @@
 				android:gravity="center_vertical"
 				app:roundedBtnCornerRadius="@dimen/fab_default_corner_radius"
 				app:roundedBtnUseCompatPadding="true"
+				app:roundedBtnElevation="4dp"
+				app:roundedBtnMaxElevation="12dp"
 				android:onClick="onClick"/>
 
 		</FrameLayout>
@@ -114,7 +116,7 @@
 
 		</FrameLayout>
 
-		<com.slaterama.floatingactionbutton.widget.FloatingActionButton
+		<com.slaterama.roundedbutton.widget.FloatingActionButton
 			android:id="@+id/fab_2"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
@@ -126,7 +128,7 @@
 			android:src="@drawable/ic_add_white_24dp"
 			android:onClick="onClick"/>
 
-		<com.slaterama.floatingactionbutton.widget.FloatingActionButton
+		<com.slaterama.roundedbutton.widget.FloatingActionButton
 			android:id="@+id/fab_3"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"

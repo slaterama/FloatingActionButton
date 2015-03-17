@@ -1,11 +1,10 @@
-package com.slaterama.floatingactionbutton.widget;
+package com.slaterama.roundedbutton.widget;
 
 import android.animation.ObjectAnimator;
 import android.animation.StateListAnimator;
 import android.annotation.TargetApi;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
 import android.graphics.Outline;
@@ -75,10 +74,11 @@ public class RoundedButtonBackgroundLollipop extends Drawable
 		view.setBackground(mRippleDrawable);
 		view.setClipToOutline(true);
 
+		// TODO Make an xml state list animator and set it in styles.xml
 		StateListAnimator stateListAnimator = view.getStateListAnimator();
-		if (stateListAnimator == null) {
+//		if (stateListAnimator == null) {
 			view.setStateListAnimator(newDefaultStateListAnimator(view, elevation, maxElevation));
-		}
+//		}
 
 		invalidatePadding(null);
 	}

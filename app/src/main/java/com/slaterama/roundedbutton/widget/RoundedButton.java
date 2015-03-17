@@ -1,4 +1,4 @@
-package com.slaterama.floatingactionbutton.widget;
+package com.slaterama.roundedbutton.widget;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -9,11 +9,11 @@ import android.os.Build;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.Button;
 
-import com.slaterama.floatingactionbutton.R;
+import com.slaterama.roundedbutton.R;
 
-public class FloatingActionButton extends ImageButton
+public class RoundedButton extends Button
 		implements RoundedButtonDelegate {
 
 	protected static RoundedButtonBackgroundImpl newRoundedButtonImpl(
@@ -28,29 +28,41 @@ public class FloatingActionButton extends ImageButton
 		}
 	}
 
+	protected static void updateOverlapPadding(float cornerRadius, boolean preventCornerOverlap,
+	                                           Rect overlapPadding) {
+		if (preventCornerOverlap) {
+			int padding = (int) Math.ceil((1 - COS_45) * cornerRadius);
+			overlapPadding.set(padding, padding, padding, padding);
+		} else {
+			overlapPadding.setEmpty();
+		}
+	}
+
 	protected boolean mPreventCornerOverlap;
 
 	protected final Rect mShadowPadding = new Rect();
+
+	protected final Rect mOverlapPadding = new Rect();
 
 	protected final Rect mContentPadding = new Rect();
 
 	protected RoundedButtonBackgroundImpl mImpl;
 
-	public FloatingActionButton(Context context) {
+	public RoundedButton(Context context) {
 		super(context, null);
 	}
 
-	public FloatingActionButton(Context context, AttributeSet attrs) {
-		this(context, attrs, R.attr.floatingActionButtonStyle);
+	public RoundedButton(Context context, AttributeSet attrs) {
+		this(context, attrs, R.attr.roundedButtonStyle);
 	}
 
-	public FloatingActionButton(Context context, AttributeSet attrs, int defStyleAttr) {
+	public RoundedButton(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		initialize(context, attrs, defStyleAttr, 0);
 	}
 
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public FloatingActionButton(Context context, AttributeSet attrs, int defStyleAttr,
+	public RoundedButton(Context context, AttributeSet attrs, int defStyleAttr,
 	                            int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
 		initialize(context, attrs, defStyleAttr, defStyleRes);
@@ -58,33 +70,34 @@ public class FloatingActionButton extends ImageButton
 
 	protected void initialize(Context context, AttributeSet attrs, int defStyleAttr,
 	                          int defStyleRes) {
-		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.FloatingActionButton,
+		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.RoundedButton,
 				defStyleAttr, defStyleRes);
 
-		ColorStateList color = a.getColorStateList(R.styleable.FloatingActionButton_fabColor);
+		ColorStateList color = a.getColorStateList(R.styleable.RoundedButton_roundedBtnColor);
 		// TODO resolve color?
 
-		float cornerRadius = a.getDimension(R.styleable.FloatingActionButton_fabCornerRadius,
+		float cornerRadius = a.getDimension(R.styleable.RoundedButton_roundedBtnCornerRadius,
 				getResources().getDimension(R.dimen.fab_default_corner_radius));
-		float elevation = a.getDimension(R.styleable.FloatingActionButton_fabElevation,
+		float elevation = a.getDimension(R.styleable.RoundedButton_roundedBtnElevation,
 				getResources().getDimension(R.dimen.fab_default_elevation));
-		float maxElevation = a.getDimension(R.styleable.FloatingActionButton_fabMaxElevation,
+		float maxElevation = a.getDimension(R.styleable.RoundedButton_roundedBtnMaxElevation,
 				getResources().getDimension(R.dimen.fab_default_max_elevation));
 		boolean useCompatPadding = a.getBoolean(
-				R.styleable.FloatingActionButton_fabUseCompatPadding, false);
+				R.styleable.RoundedButton_roundedBtnUseCompatPadding, false);
 		mPreventCornerOverlap = a.getBoolean(
-				R.styleable.FloatingActionButton_fabPreventCornerOverlap, true);
+				R.styleable.RoundedButton_roundedBtnPreventCornerOverlap, true);
+		updateOverlapPadding(cornerRadius, mPreventCornerOverlap, mOverlapPadding);
 
 		int defaultPadding = a.getDimensionPixelOffset(
-				R.styleable.FloatingActionButton_fabContentPadding, 0);
+				R.styleable.RoundedButton_roundedBtnContentPadding, 0);
 		mContentPadding.left = a.getDimensionPixelOffset(
-				R.styleable.FloatingActionButton_fabContentPaddingLeft, defaultPadding);
+				R.styleable.RoundedButton_roundedBtnContentPaddingLeft, defaultPadding);
 		mContentPadding.top = a.getDimensionPixelOffset(
-				R.styleable.FloatingActionButton_fabContentPaddingTop, defaultPadding);
+				R.styleable.RoundedButton_roundedBtnContentPaddingTop, defaultPadding);
 		mContentPadding.right = a.getDimensionPixelOffset(
-				R.styleable.FloatingActionButton_fabContentPaddingRight, defaultPadding);
+				R.styleable.RoundedButton_roundedBtnContentPaddingRight, defaultPadding);
 		mContentPadding.bottom = a.getDimensionPixelOffset(
-				R.styleable.FloatingActionButton_fabContentPaddingBottom, defaultPadding);
+				R.styleable.RoundedButton_roundedBtnContentPaddingBottom, defaultPadding);
 
 		a.recycle();
 
@@ -156,39 +169,39 @@ public class FloatingActionButton extends ImageButton
 	public void setPreventCornerOverlap(boolean preventCornerOverlap) {
 		if (preventCornerOverlap != mPreventCornerOverlap) {
 			mPreventCornerOverlap = preventCornerOverlap;
-			// TODO
+			updateOverlapPadding(getCornerRadius(), preventCornerOverlap, mOverlapPadding);
+			updatePadding();
 		}
 	}
 
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
 		int measuredWidthAndState = ViewCompat.getMeasuredWidthAndState(this);
 		int measuredHeightAndState = ViewCompat.getMeasuredHeightAndState(this);
-		// int measuredWidth = measuredWidthAndState & ViewCompat.MEASURED_SIZE_MASK;
+		int measuredWidth = measuredWidthAndState & ViewCompat.MEASURED_SIZE_MASK;
 		int measuredWidthState = measuredWidthAndState & ViewCompat.MEASURED_STATE_MASK;
-		// int measuredHeight = measuredHeightAndState & ViewCompat.MEASURED_SIZE_MASK;
+		int measuredHeight = measuredHeightAndState & ViewCompat.MEASURED_SIZE_MASK;
 		int measuredHeightState = measuredHeightAndState & ViewCompat.MEASURED_STATE_MASK;
 
 		float cornerRadius = mImpl.getCornerRadius();
-		int fabWidth = (int) (2 * cornerRadius) + mShadowPadding.left + mShadowPadding.right;
-		int fabHeight = (int) (2 * cornerRadius) + mShadowPadding.top + mShadowPadding.bottom;
-		int resolvedWidthSizeAndState = ViewCompat.resolveSizeAndState(fabWidth, widthMeasureSpec,
-				measuredWidthState);
-		int resolvedHeightSizeAndState = ViewCompat.resolveSizeAndState(fabHeight,
-				heightMeasureSpec, measuredHeightState);
+		int minWidth = (int) (2 * cornerRadius) + mShadowPadding.left + mShadowPadding.right;
+		int minHeight = (int) (2 * cornerRadius) + mShadowPadding.top + mShadowPadding.bottom;
+		int resolvedWidthSizeAndState = ViewCompat.resolveSizeAndState(
+				Math.max(measuredWidth, minWidth), widthMeasureSpec, measuredWidthState);
+		int resolvedHeightSizeAndState = ViewCompat.resolveSizeAndState(
+				Math.max(measuredHeight, minHeight), heightMeasureSpec, measuredHeightState);
 		int resolvedWidth = resolvedWidthSizeAndState & ViewCompat.MEASURED_SIZE_MASK;
 		int resolvedHeight = resolvedHeightSizeAndState & ViewCompat.MEASURED_SIZE_MASK;
+
 		setMeasuredDimension(resolvedWidth, resolvedHeight);
 	}
 
 	public void updatePadding() {
-		// TODO account for mPreventCornerOverlap
-		float overlapPadding = 0.0f;
-
-		super.setPadding((int) (mShadowPadding.left + mContentPadding.left + overlapPadding),
-				(int) (mShadowPadding.top + mContentPadding.top + overlapPadding),
-				(int) (mShadowPadding.right + mContentPadding.right + overlapPadding),
-				(int) (mShadowPadding.bottom + mContentPadding.bottom + overlapPadding));
+		super.setPadding(mShadowPadding.left + mOverlapPadding.left + mContentPadding.left,
+				mShadowPadding.top + mOverlapPadding.top + mContentPadding.top,
+				mShadowPadding.right + mOverlapPadding.right + mContentPadding.right,
+				mShadowPadding.bottom + mOverlapPadding.bottom + mContentPadding.bottom);
 	}
 }

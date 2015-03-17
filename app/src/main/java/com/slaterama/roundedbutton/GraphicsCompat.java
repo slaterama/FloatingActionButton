@@ -1,4 +1,4 @@
-package com.slaterama.floatingactionbutton;
+package com.slaterama.roundedbutton;
 
 import android.annotation.TargetApi;
 import android.graphics.Canvas;

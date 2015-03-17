@@ -1,4 +1,4 @@
-package com.slaterama.floatingactionbutton.widget;
+package com.slaterama.roundedbutton.widget;
 
 import android.annotation.TargetApi;
 import android.content.res.ColorStateList;
@@ -19,10 +19,9 @@ import android.util.StateSet;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
-import com.slaterama.floatingactionbutton.GraphicsCompat;
-import com.slaterama.floatingactionbutton.LogEx;
-import com.slaterama.floatingactionbutton.R;
-import com.slaterama.floatingactionbutton.ViewCompatEx;
+import com.slaterama.roundedbutton.GraphicsCompat;
+import com.slaterama.roundedbutton.R;
+import com.slaterama.roundedbutton.ViewCompatEx;
 
 @TargetApi(Build.VERSION_CODES.ECLAIR_MR1)
 public class RoundedButtonBackgroundEclairMr1 extends Drawable

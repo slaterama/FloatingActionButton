@@ -1,4 +1,4 @@
-package com.slaterama.floatingactionbutton.widget;
+package com.slaterama.roundedbutton.widget;
 
 import android.content.res.ColorStateList;
 

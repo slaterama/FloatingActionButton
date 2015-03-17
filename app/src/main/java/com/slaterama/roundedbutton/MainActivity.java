@@ -1,4 +1,4 @@
-package com.slaterama.floatingactionbutton;
+package com.slaterama.roundedbutton;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.slaterama.floatingactionbutton.widget.FloatingActionButton;
+import com.slaterama.roundedbutton.widget.FloatingActionButton;
 
 
 public class MainActivity extends ActionBarActivity {
