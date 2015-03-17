@@ -5,6 +5,7 @@ import android.animation.StateListAnimator;
 import android.annotation.TargetApi;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
 import android.graphics.Outline;
@@ -15,6 +16,7 @@ import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.RippleDrawable;
 import android.os.Build;
+import android.util.TypedValue;
 import android.view.View;
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -62,9 +64,13 @@ public class RoundedButtonBackgroundLollipop extends Drawable
 		mBoundsF = new RectF();
 		mBoundsI = new Rect();
 
-		mRippleDrawable = new RippleDrawable(color, this, null);
-
 		View view = delegate.getView();
+
+		TypedValue outValue = new TypedValue();
+		view.getContext().getTheme().resolveAttribute(android.R.attr.colorControlHighlight, outValue, true);
+		ColorStateList rippleColor = ColorStateList.valueOf(outValue.data);
+		mRippleDrawable = new RippleDrawable(rippleColor, this, null);
+
 		view.setElevation(elevation);
 		view.setBackground(mRippleDrawable);
 		view.setClipToOutline(true);
