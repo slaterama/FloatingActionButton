@@ -27,4 +27,8 @@
 	<color name="fab_color_pressed_material">#ff0099cc</color>
 	<color name="fab_color_disabled_material">#ff929292</color>
 
+	<!-- Testing -->
+
+	<color name="test_color">?colorButtonNormal</color>
+
 </resources>
